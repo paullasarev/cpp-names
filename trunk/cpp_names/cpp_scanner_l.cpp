@@ -478,14 +478,13 @@ static yyconst flex_int16_t yy_chk[156] =
 #define YY_RESTORE_YY_MORE_OFFSET
 #line 1 "cpp_scanner.l"
 #line 2 "cpp_scanner.l"
- 
 #include "cpp_scanner_flex.h"
 #define YY_NO_UNISTD_H 1
-#line 16 "cpp_scanner.l"
+#line 15 "cpp_scanner.l"
 #define YY_USER_ACTION  yylloc->columns(yyleng);
 
 
-#line 489 "cpp_scanner_l.cpp"
+#line 488 "cpp_scanner_l.cpp"
 
 #define INITIAL 0
 #define FUNCTION 1
@@ -595,10 +594,10 @@ YY_DECL
 	register char *yy_cp, *yy_bp;
 	register int yy_act;
     
-#line 27 "cpp_scanner.l"
+#line 26 "cpp_scanner.l"
 
 
-#line 602 "cpp_scanner_l.cpp"
+#line 601 "cpp_scanner_l.cpp"
 
 	if ( !(yy_init) )
 		{
@@ -681,13 +680,13 @@ do_action:	/* This label is used only to access EOF actions. */
 case 1:
 /* rule 1 can match eol */
 YY_RULE_SETUP
-#line 29 "cpp_scanner.l"
+#line 28 "cpp_scanner.l"
 {
 }
 	YY_BREAK
 case 2:
 YY_RULE_SETUP
-#line 32 "cpp_scanner.l"
+#line 31 "cpp_scanner.l"
 {
   comment_state = YYSTATE;
   BEGIN(COMMENT);
@@ -695,14 +694,14 @@ YY_RULE_SETUP
 	YY_BREAK
 case 3:
 YY_RULE_SETUP
-#line 37 "cpp_scanner.l"
+#line 36 "cpp_scanner.l"
 {
 }
 	YY_BREAK
 case 4:
 /* rule 4 can match eol */
 YY_RULE_SETUP
-#line 40 "cpp_scanner.l"
+#line 39 "cpp_scanner.l"
 {
   yylloc->lines(1);
   yylloc->step();
@@ -710,101 +709,101 @@ YY_RULE_SETUP
 	YY_BREAK
 case 5:
 YY_RULE_SETUP
-#line 45 "cpp_scanner.l"
+#line 44 "cpp_scanner.l"
 {
   BEGIN(comment_state);
 }
 	YY_BREAK
 case 6:
 YY_RULE_SETUP
-#line 49 "cpp_scanner.l"
+#line 48 "cpp_scanner.l"
 {
 }
 	YY_BREAK
 case 7:
 YY_RULE_SETUP
-#line 52 "cpp_scanner.l"
+#line 51 "cpp_scanner.l"
 { return CppBisonParser::token::NAMESPACE; }
 	YY_BREAK
 case 8:
 YY_RULE_SETUP
-#line 53 "cpp_scanner.l"
+#line 52 "cpp_scanner.l"
 { return CppBisonParser::token::CONST; }
 	YY_BREAK
 case 9:
 YY_RULE_SETUP
-#line 54 "cpp_scanner.l"
+#line 53 "cpp_scanner.l"
 { return CppBisonParser::token::CLASS; }
 	YY_BREAK
 case 10:
 YY_RULE_SETUP
-#line 55 "cpp_scanner.l"
+#line 54 "cpp_scanner.l"
 { return CppBisonParser::token::STRUCT; }
 	YY_BREAK
 case 11:
 YY_RULE_SETUP
-#line 57 "cpp_scanner.l"
+#line 56 "cpp_scanner.l"
 { return '{'; }
 	YY_BREAK
 case 12:
 YY_RULE_SETUP
-#line 58 "cpp_scanner.l"
+#line 57 "cpp_scanner.l"
 {	return '}'; }
 	YY_BREAK
 case 13:
 YY_RULE_SETUP
-#line 59 "cpp_scanner.l"
+#line 58 "cpp_scanner.l"
 { return '('; }
 	YY_BREAK
 case 14:
 YY_RULE_SETUP
-#line 60 "cpp_scanner.l"
+#line 59 "cpp_scanner.l"
 { return ')';	}
 	YY_BREAK
 case 15:
 YY_RULE_SETUP
-#line 61 "cpp_scanner.l"
+#line 60 "cpp_scanner.l"
 { return ';'; }
 	YY_BREAK
 case 16:
 YY_RULE_SETUP
-#line 62 "cpp_scanner.l"
+#line 61 "cpp_scanner.l"
 { return ','; }
 	YY_BREAK
 case 17:
 YY_RULE_SETUP
-#line 63 "cpp_scanner.l"
+#line 62 "cpp_scanner.l"
 { return '*'; }
 	YY_BREAK
 case 18:
 YY_RULE_SETUP
-#line 64 "cpp_scanner.l"
+#line 63 "cpp_scanner.l"
 { return '&'; }
 	YY_BREAK
 case 19:
 YY_RULE_SETUP
-#line 66 "cpp_scanner.l"
+#line 65 "cpp_scanner.l"
 { 
   return CppBisonParser::token::UNQUALIFIER;
 }
 	YY_BREAK
 case 20:
 YY_RULE_SETUP
-#line 70 "cpp_scanner.l"
+#line 69 "cpp_scanner.l"
 { 
   return CppBisonParser::token::QUALIFIER;
 }
 	YY_BREAK
 case 21:
 YY_RULE_SETUP
-#line 74 "cpp_scanner.l"
+#line 73 "cpp_scanner.l"
 {
 }
 	YY_BREAK
 case 22:
 /* rule 22 can match eol */
 YY_RULE_SETUP
-#line 77 "cpp_scanner.l"
+#line 76 "cpp_scanner.l"
 {
   yylloc->lines(1);
   yylloc->step();
@@ -812,14 +811,14 @@ YY_RULE_SETUP
 	YY_BREAK
 case 23:
 YY_RULE_SETUP
-#line 82 "cpp_scanner.l"
+#line 81 "cpp_scanner.l"
 {
     ++bracket_level;
 }
 	YY_BREAK
 case 24:
 YY_RULE_SETUP
-#line 86 "cpp_scanner.l"
+#line 85 "cpp_scanner.l"
 {
     --bracket_level;
     if (bracket_level == 0)
@@ -832,13 +831,13 @@ YY_RULE_SETUP
 	YY_BREAK
 case 25:
 YY_RULE_SETUP
-#line 96 "cpp_scanner.l"
+#line 95 "cpp_scanner.l"
 {
 }
 	YY_BREAK
 case 26:
 YY_RULE_SETUP
-#line 99 "cpp_scanner.l"
+#line 98 "cpp_scanner.l"
 { 
 		yylval->ident = std::string(yytext, yyleng); 
 		return CppBisonParser::token::IDENT;
@@ -847,7 +846,7 @@ YY_RULE_SETUP
 case 27:
 /* rule 27 can match eol */
 YY_RULE_SETUP
-#line 104 "cpp_scanner.l"
+#line 103 "cpp_scanner.l"
 {
   yylloc->lines(1);
   yylloc->step();
@@ -855,16 +854,16 @@ YY_RULE_SETUP
 	YY_BREAK
 case 28:
 YY_RULE_SETUP
-#line 109 "cpp_scanner.l"
+#line 108 "cpp_scanner.l"
 { 
 }
 	YY_BREAK
 case 29:
 YY_RULE_SETUP
-#line 113 "cpp_scanner.l"
+#line 112 "cpp_scanner.l"
 YY_FATAL_ERROR( "flex scanner jammed" );
 	YY_BREAK
-#line 868 "cpp_scanner_l.cpp"
+#line 867 "cpp_scanner_l.cpp"
 case YY_STATE_EOF(INITIAL):
 case YY_STATE_EOF(FUNCTION):
 case YY_STATE_EOF(COMMENT):
@@ -1770,7 +1769,7 @@ void yyfree (void * ptr )
 
 #define YYTABLES_NAME "yytables"
 
-#line 113 "cpp_scanner.l"
+#line 112 "cpp_scanner.l"
 
 
 

@@ -1,5 +1,4 @@
 %{
- 
 #include "cpp_scanner_flex.h"
 %}
 
