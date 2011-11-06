@@ -1,0 +1,28 @@
+Microsoft Visual Studio Solution File, Format Version 11.00
+# Visual Studio 2010
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "cpp_names", "cpp_names\cpp_names.vcxproj", "{B5CF1030-361E-4BFF-BF8F-256086463EC6}"
+EndProject
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "unit_tests", "unit_tests\unit_tests.vcxproj", "{12F8E9CE-BA89-47CB-92E5-AE9718C1E664}"
+	ProjectSection(ProjectDependencies) = postProject
+		{B5CF1030-361E-4BFF-BF8F-256086463EC6} = {B5CF1030-361E-4BFF-BF8F-256086463EC6}
+	EndProjectSection
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Win32 = Debug|Win32
+		Release|Win32 = Release|Win32
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{B5CF1030-361E-4BFF-BF8F-256086463EC6}.Debug|Win32.ActiveCfg = Debug|Win32
+		{B5CF1030-361E-4BFF-BF8F-256086463EC6}.Debug|Win32.Build.0 = Debug|Win32
+		{B5CF1030-361E-4BFF-BF8F-256086463EC6}.Release|Win32.ActiveCfg = Release|Win32
+		{B5CF1030-361E-4BFF-BF8F-256086463EC6}.Release|Win32.Build.0 = Release|Win32
+		{12F8E9CE-BA89-47CB-92E5-AE9718C1E664}.Debug|Win32.ActiveCfg = Debug|Win32
+		{12F8E9CE-BA89-47CB-92E5-AE9718C1E664}.Debug|Win32.Build.0 = Debug|Win32
+		{12F8E9CE-BA89-47CB-92E5-AE9718C1E664}.Release|Win32.ActiveCfg = Release|Win32
+		{12F8E9CE-BA89-47CB-92E5-AE9718C1E664}.Release|Win32.Build.0 = Release|Win32
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+EndGlobal
