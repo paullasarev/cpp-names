@@ -116,7 +116,7 @@ namespace CppNames
     std::vector<std::string> argv;
     for(int i = 0; i < argc; ++i)
     {
-      argv.push_back(argv[i]);
+      argv.push_back(argv_c[i]);
     }
 
     return Run(argv, out);
