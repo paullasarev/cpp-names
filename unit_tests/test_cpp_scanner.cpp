@@ -112,8 +112,6 @@ namespace CppNames
         CHECK(scanner.Scan(content, names));
         CHECK(names.size() == 2);
         
-//        NameInfo info;
-
         CHECK_NAME(names, "First", NameInfo::NAME_NAMESPACE);
         CHECK_NAME(names, "First::Second", NameInfo::NAME_NAMESPACE);
       }
