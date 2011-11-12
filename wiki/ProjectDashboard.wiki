@@ -28,13 +28,46 @@ Infrastructure:
  * *CppBisonParser*
  * *CppScanner* realisation of FileScanner interface
 
-Cpp parser:
- * 
+Cpp parser (this is really list of unit tests names):
+ * !EmptyContent
+ * !OneNamespace
+ * !NestedNamespace
+ * !AnonymouseNamespace
+ * !FunctionDeclaration
+ * !FunctionInNamespace
+ * !QualifiedFunction
+ * !UnQualifiedFunction
+ * !UnQualifiedNamespaceFunction
+ * !QualifiedParameter
+ * !QualifiedReturnType
+ * !PointerReturnType
+ * !ReferenceType
+ * !ConstType
+ * !ConstPointerType
+ * !FunctionDefinition
+ * !FunctionBrackets
+ * !LineComment
+ * !LineCommentInFunction
+ * !StreamComment
+ * !StreamCommentInFunction
+ * !ClassForwardDeclaration
+ * !StructForwardDeclaration
+ * !NamespaceForwardDeclaration
+ * !EmptyClassDefinition
+ * !ClassMethodDefinition
+ * !ClassMethodDeclaration
+ * !InnerClassDeclaration
+ * !ConstClassMethodDeclaration
 
  
 =Planned  features=
 
 Cpp parser:
- * *Enum* declaration
- * *Template* declaration
- * *Preprocessor* directives
+ * !PrivatePublicProtectedMembers
+ * !EnumDeclaration
+ * !TemplateDeclaration
+ * !SpecializedTemplate
+ * !PreprocessorDefine
+ * !PreprocessorIfdef
+ * !PreprocessorIf
+ * !PreprocessorInclude
