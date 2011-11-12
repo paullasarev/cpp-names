@@ -13,7 +13,7 @@ Instruments:
   * [http://www.assembla.com/spaces/hippomocks/wiki/Tutorial_3_0 slightly outdated tutorial]
   * [https://github.com/bigeasy/hippomocks actual sources]
  * [http://flex.sourceforge.net/ Flex] - ageless finite-state lexical analizer generator
- * [http://www.gnu.org/s/bison/manual/html_node/index.html Bison] - flex companion, GNU reincarnation of YACC LR syntax parser generator]
+ * [http://www.gnu.org/s/bison/manual/html_node/index.html Bison] - flex companion, GNU reincarnation of YACC LR syntax parser generator
 
 Useful materials:
  * [http://www.lysator.liu.se/c/ANSI-C-grammar-y.html ANSI C Yacc grammar]
