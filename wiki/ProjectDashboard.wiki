@@ -1,5 +1,7 @@
 #summary Project actual state and dashboard
 
+<wiki:toc max_depth="1" />
+
 =Design principles and used technologies=
  * [http://en.wikipedia.org/wiki/Test-driven_development Test driven development]
  * [http://en.wikipedia.org/wiki/Mock_object Mocking conception]
@@ -54,8 +56,7 @@ Cpp parser (this is just a list of unit tests names):
  * !StructForwardDeclaration
  * !NamespaceForwardDeclaration
  * !EmptyClassDefinition
- * !ClassMethodDefinition
-      Method body is not parsed and is recognized lexycally, as one token
+ * !ClassMethodDefinition Note: Method body is not parsed and is recognized lexycally, as one token
  * !ClassMethodDeclaration
  * !InnerClassDeclaration
  * !ConstClassMethodDeclaration
