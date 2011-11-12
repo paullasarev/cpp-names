@@ -1,5 +1,6 @@
 #summary Project actual state and dashboard
 
+=Contents=
 <wiki:toc max_depth="1" />
 
 =Design principles and used technologies=
@@ -56,7 +57,7 @@ Cpp parser (this is just a list of unit tests names):
  * !StructForwardDeclaration
  * !NamespaceForwardDeclaration
  * !EmptyClassDefinition
- * !ClassMethodDefinition Note: Method body is not parsed and is recognized lexycally, as one token
+ * !ClassMethodDefinition  (method body is not parsed and is recognized lexycally, as one token)
  * !ClassMethodDeclaration
  * !InnerClassDeclaration
  * !ConstClassMethodDeclaration
