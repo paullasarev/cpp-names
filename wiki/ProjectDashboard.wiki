@@ -2,7 +2,7 @@
 
 <wiki:toc max_depth="1" />
 
-=Design principles and used technologies=
+=Design and technologies=
 
 Desing:
  * [http://en.wikipedia.org/wiki/Test-driven_development Test driven development]
