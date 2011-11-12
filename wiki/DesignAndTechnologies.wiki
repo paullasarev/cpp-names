@@ -1,0 +1,19 @@
+#summary Design and technologies
+
+Desing principles:
+ * [http://en.wikipedia.org/wiki/Test-driven_development Test driven development]
+ * [http://en.wikipedia.org/wiki/Mock_object Mocking conception]
+  * [http://www.jmock.org/oopsla2004.pdf Martin Fauler: Mock Roles, not Objects]
+  * [http://en.wikipedia.org/wiki/Behavior_Driven_Development Behaviour mocking]
+
+Instruments:
+ * [http://members.home.nl/rutger.van.beusekom/ Yaffut] - simple but powerful C++ unit testing engine
+ * [http://www.assembla.com/spaces/hippomocks Hippomocks] - automagic C++ mock engine
+  * [http://www.hippomocks.com/wiki/index.php/Special:AllPages wiki tutorial]
+  * [http://www.assembla.com/spaces/hippomocks/wiki/Tutorial_3_0 slightly outdated tutorial]
+  * [https://github.com/bigeasy/hippomocks actual sources]
+ * [http://flex.sourceforge.net/ Flex] - ageless finite-state lexical analizer generator
+ * [http://www.gnu.org/s/bison/manual/html_node/index.html Bison] - flex companion, GNU reincarnation of YACC LR syntax parser generator]
+
+Useful materials:
+ * [http://www.lysator.liu.se/c/ANSI-C-grammar-y.html ANSI C Yacc grammar]
