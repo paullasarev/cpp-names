@@ -30,7 +30,7 @@ Cpp parser (this is just a list of unit tests names):
  * !ReferenceType
  * !ConstType
  * !ConstPointerType
- * !FunctionDefinition
+ * !FunctionDefinition (body is not parsed and is recognized lexycally, as one token)
  * !FunctionBrackets
  * !LineComment
  * !LineCommentInFunction
