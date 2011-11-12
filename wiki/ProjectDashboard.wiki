@@ -19,7 +19,7 @@
 =Realised features=
 
 Infrastructure:
- * *Database* facade
+ * *[Database]* facade
  * *DirectoryTree* file system traverser
  * *FileScanner* interface
  * *NameToCsv* trivial realisation
