@@ -1,5 +1,4 @@
 #summary Project actual state and dashboard
-#sidebar TableOfContents
 
 <wiki:toc max_depth="1" />
 
