@@ -40,7 +40,7 @@ Cpp parser (this is just a list of unit tests names):
  * !StructForwardDeclaration
  * !NamespaceForwardDeclaration
  * !EmptyClassDefinition
- * !ClassMethodDefinition  (method body is not parsed and is recognized lexycally, as one token)
+ * !ClassMethodDefinition (body is not parsed and is recognized lexycally, as one token)
  * !ClassMethodDeclaration
  * !InnerClassDeclaration
  * !ConstClassMethodDeclaration
