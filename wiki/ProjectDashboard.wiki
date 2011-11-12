@@ -55,6 +55,7 @@ Cpp parser:
  * !SpecializedTemplate
  * !PreprocessorDefine
  * !PreprocessorIfdef
+ * !PreprocessorIfndef
  * !PreprocessorElse
  * !PreprocessorIf
  * !PreprocessorInclude
