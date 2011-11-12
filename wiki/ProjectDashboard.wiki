@@ -28,7 +28,7 @@ Infrastructure:
  * *CppBisonParser*
  * *CppScanner* realisation of FileScanner interface
 
-Cpp parser (this is really list of unit tests names):
+Cpp parser (this is just a list of unit tests names):
  * !EmptyContent
  * !OneNamespace
  * !NestedNamespace
