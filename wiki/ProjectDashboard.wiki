@@ -12,7 +12,7 @@ Desing principles:
 
 Instruments:
  * [http://members.home.nl/rutger.van.beusekom/ Yaffut] - simple but powerful C++ unit testing engine
- * [http://www.assembla.com/spaces/hippomocks Hippomocks] automagic C++ mock engine
+ * [http://www.assembla.com/spaces/hippomocks Hippomocks] - automagic C++ mock engine
   * [http://www.hippomocks.com/wiki/index.php/Special:AllPages wiki tutorial]
   * [http://www.assembla.com/spaces/hippomocks/wiki/Tutorial_3_0 slightly outdated tutorial]
   * [https://github.com/bigeasy/hippomocks actual sources]
