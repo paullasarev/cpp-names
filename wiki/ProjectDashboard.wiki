@@ -9,13 +9,25 @@
  * [http://www.gnu.org/s/bison/manual/html_node/index.html Bison parser]
 
 =Some useful materials=
+ * [http://www.assembla.com/spaces/hippomocks Hippomocks] C++ mock engine
+  * [http://www.hippomocks.com/wiki/index.php/Special:AllPages wiki tutorial]
+  * [http://www.assembla.com/spaces/hippomocks/wiki/Tutorial_3_0 slightly outdated tutorial]
+  * [https://github.com/bigeasy/hippomocks actual sources]
+
  * [http://www.lysator.liu.se/c/ANSI-C-grammar-y.html ANSI C Yacc grammar]
 
 
 =Features=
 ==Realised==
 
- * CommandLineProcessor
-
+ * Database facade
+ * DirectoryTree file system traverser
+ * FileScanner interface
+ * NameToCsv trivial realisation
+ * CommandLine string argument vector processor
+ * CppFlexScanner 
+ * CppBisonParser
+ * CppScanner realisation of FileScanner interface
+ 
 ==Planned==
  * Enum
