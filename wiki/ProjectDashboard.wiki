@@ -1,21 +1,21 @@
 #summary Project actual state and dashboard
 
 =Design principles and used technologies=
-*[http://en.wikipedia.org/wiki/Test-driven_development Test driven development]
-*[http://en.wikipedia.org/wiki/Behavior_Driven_Development Behaviour mocking]
-*[http://en.wikipedia.org/wiki/Mock_object Functionality mocking]
-**[http://www.jmock.org/oopsla2004.pdf Martin Fauler: Mock Roles, not Objects]
-*[http://flex.sourceforge.net/ Flex lexer]
-*[http://www.gnu.org/s/bison/manual/html_node/index.html Bison parser]
+  *[http://en.wikipedia.org/wiki/Test-driven_development Test driven development]
+  *[http://en.wikipedia.org/wiki/Behavior_Driven_Development Behaviour mocking]
+  *[http://en.wikipedia.org/wiki/Mock_object Functionality mocking]
+  **[http://www.jmock.org/oopsla2004.pdf Martin Fauler: Mock Roles, not Objects]
+  *[http://flex.sourceforge.net/ Flex lexer]
+  *[http://www.gnu.org/s/bison/manual/html_node/index.html Bison parser]
 
 =Some useful materials=
-*[http://www.lysator.liu.se/c/ANSI-C-grammar-y.html ANSI C Yacc grammar]
+  *[http://www.lysator.liu.se/c/ANSI-C-grammar-y.html ANSI C Yacc grammar]
 
 
 =Features=
 ==Realised==
 
-*CommandLineProcessor
+  *CommandLineProcessor
 
 ==Planned==
-* Enum
+  * Enum
