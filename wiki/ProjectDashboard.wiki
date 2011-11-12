@@ -2,9 +2,9 @@
 
 =Design principles and used technologies=
  * [http://en.wikipedia.org/wiki/Test-driven_development Test driven development]
- * [http://en.wikipedia.org/wiki/Behavior_Driven_Development Behaviour mocking]
- * [http://en.wikipedia.org/wiki/Mock_object Functionality mocking]
+ * [http://en.wikipedia.org/wiki/Mock_object Mocking conception]
   * [http://www.jmock.org/oopsla2004.pdf Martin Fauler: Mock Roles, not Objects]
+  * [http://en.wikipedia.org/wiki/Behavior_Driven_Development Behaviour mocking]
  * [http://flex.sourceforge.net/ Flex lexer]
  * [http://www.gnu.org/s/bison/manual/html_node/index.html Bison parser]
 
@@ -13,9 +13,8 @@
   * [http://www.hippomocks.com/wiki/index.php/Special:AllPages wiki tutorial]
   * [http://www.assembla.com/spaces/hippomocks/wiki/Tutorial_3_0 slightly outdated tutorial]
   * [https://github.com/bigeasy/hippomocks actual sources]
-
+ * [http://members.home.nl/rutger.van.beusekom/ Yaffut C++ unit testing engine]
  * [http://www.lysator.liu.se/c/ANSI-C-grammar-y.html ANSI C Yacc grammar]
-
 
 =Features=
 ==Realised==
