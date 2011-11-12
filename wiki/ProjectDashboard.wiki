@@ -53,6 +53,7 @@ Cpp parser:
  * !EnumDeclaration
  * !TemplateDeclaration
  * !SpecializedTemplate
+ * !FuctionLevelExceptionSyntax
  * !PreprocessorDefine
  * !PreprocessorIfdef
  * !PreprocessorIfndef
