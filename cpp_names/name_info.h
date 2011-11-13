@@ -18,6 +18,7 @@ namespace CppNames
       NAME_TYPE,
       NAME_CLASS,
       NAME_STRUCT,
+      NAME_ENUM,
     } Type;
     bool Qualified;
     bool IsConst;
