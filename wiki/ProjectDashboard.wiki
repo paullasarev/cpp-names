@@ -48,7 +48,7 @@ Cpp parser (this is just a list of unit tests names):
  
 =Planned  features=
 
-Cpp parser:
+!CppParser:
  * !PrivatePublicProtectedMembers
  * !EnumDeclaration
  * !TemplateDeclaration
@@ -60,3 +60,7 @@ Cpp parser:
  * !PreprocessorElse
  * !PreprocessorIf
  * !PreprocessorInclude
+
+!FileScanner:
+ * !FixDeclarationPlace
+ * !FixDefinitionPlace
