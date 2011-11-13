@@ -14,7 +14,7 @@ Infrastructure:
  * *CppBisonParser* adapter
  * *CppScanner* realisation of FileScanner interface
 
-!Database:
+Database:
  * !EmptyCppInDirectory
  * !NamescpaceInDirectory
 
