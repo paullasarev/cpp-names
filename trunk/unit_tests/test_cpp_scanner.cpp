@@ -37,7 +37,7 @@ namespace CppNames
       #define CHECK_CONST(names, name, isConst) \
         CheckConst(names, name, isConst, __YAFFUT_AT__, "CHECK_CONST(" #name ", " #isConst ") failed ")
 
-      TESTCASE(Scan, Empty)
+      TESTCASE(Scan, EmptyContent)
       {
         std::stringstream content("");
         NameInfoSet names;
@@ -46,7 +46,7 @@ namespace CppNames
         EQUAL(size_t(0), names.size());
       }
 
-      TESTCASE(Scan, Namespace)
+      TESTCASE(Scan, OneNamespace)
       {
         std::stringstream content(
           ""
@@ -504,6 +504,21 @@ namespace CppNames
         CHECK_NAME(names, "First::Method", NameInfo::NAME_FUNCTION);
         CHECK_CONST(names, "First::Function", true);
         CHECK_CONST(names, "First::Method", true);
+      }
+
+      TESTCASE(Scan, EnumDecl)
+      {
+        std::stringstream content(
+          "enum State{\n"
+          "  INITIAL,\n"
+          "  WORD,\n"
+          "};\n"
+          );
+        NameInfoSet names;
+        CppScanner scanner;
+        CHECK(scanner.Scan(content, names));
+        
+        CHECK_NAME(names, "State", NameInfo::NAME_ENUM);
       }
 
     }
