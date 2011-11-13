@@ -55,6 +55,7 @@ struct ParserStackType
 {
 	std::string ident;
   NameInfo name;
+  int intvalue;
 	std::list<NameInfo> list;
   bool flag;
 };
@@ -67,7 +68,7 @@ struct ParserStackType
 
 
 /* Line 34 of lalr1.cc  */
-#line 71 "cpp_scanner_y.hpp"
+#line 72 "cpp_scanner_y.hpp"
 
 
 #include <string>
@@ -80,7 +81,7 @@ struct ParserStackType
 namespace CppNames {
 
 /* Line 34 of lalr1.cc  */
-#line 84 "cpp_scanner_y.hpp"
+#line 85 "cpp_scanner_y.hpp"
   class position;
   class location;
 
@@ -89,7 +90,7 @@ namespace CppNames {
 } // CppNames
 
 /* Line 34 of lalr1.cc  */
-#line 93 "cpp_scanner_y.hpp"
+#line 94 "cpp_scanner_y.hpp"
 
 #include "location.hh"
 
@@ -136,7 +137,7 @@ do {							\
 namespace CppNames {
 
 /* Line 34 of lalr1.cc  */
-#line 140 "cpp_scanner_y.hpp"
+#line 141 "cpp_scanner_y.hpp"
 
   /// A Bison parser.
   class CppBisonParser
@@ -160,9 +161,11 @@ namespace CppNames {
      UNQUALIFIER = 260,
      CLASS = 261,
      STRUCT = 262,
-     CONST = 263,
-     IDENT = 264,
-     FUNCTION_BODY = 265
+     ENUM = 263,
+     CONST = 264,
+     IDENT = 265,
+     FUNCTION_BODY = 266,
+     INTVALUE = 267
    };
 
     };
@@ -259,7 +262,7 @@ namespace CppNames {
     static const unsigned char yytable_[];
     static const signed char yytable_ninf_;
 
-    static const unsigned char yycheck_[];
+    static const signed char yycheck_[];
 
     /// For a state, its accessing symbol.
     static const unsigned char yystos_[];
@@ -339,7 +342,7 @@ namespace CppNames {
 } // CppNames
 
 /* Line 34 of lalr1.cc  */
-#line 343 "cpp_scanner_y.hpp"
+#line 346 "cpp_scanner_y.hpp"
 
 
 

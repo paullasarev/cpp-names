@@ -506,12 +506,54 @@ namespace CppNames
         CHECK_CONST(names, "First::Method", true);
       }
 
-      TESTCASE(Scan, EnumDecl)
+      TESTCASE(Scan, EnumEmpty)
+      {
+        std::stringstream content(
+          "enum State{\n"
+          "};\n"
+          );
+        NameInfoSet names;
+        CppScanner scanner;
+        CHECK(scanner.Scan(content, names));
+        
+        CHECK_NAME(names, "State", NameInfo::NAME_ENUM);
+      }
+
+      TESTCASE(Scan, EnumField)
+      {
+        std::stringstream content(
+          "enum State{\n"
+          "  INITIAL\n"
+          "};\n"
+          );
+        NameInfoSet names;
+        CppScanner scanner;
+        CHECK(scanner.Scan(content, names));
+        
+        CHECK_NAME(names, "State", NameInfo::NAME_ENUM);
+      }
+
+      TESTCASE(Scan, EnumCommaEnded)
       {
         std::stringstream content(
           "enum State{\n"
           "  INITIAL,\n"
-          "  WORD,\n"
+          "  FIRST,\n"
+          "};\n"
+          );
+        NameInfoSet names;
+        CppScanner scanner;
+        CHECK(scanner.Scan(content, names));
+        
+        CHECK_NAME(names, "State", NameInfo::NAME_ENUM);
+      }
+
+      TESTCASE(Scan, EnumInitialized)
+      {
+        std::stringstream content(
+          "enum State{\n"
+          "  INITIAL = 0,\n"
+          "  FIRST = 1\n"
           "};\n"
           );
         NameInfoSet names;
