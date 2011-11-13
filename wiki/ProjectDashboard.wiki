@@ -79,6 +79,7 @@ Cpp parser :
 !CppParser:
  * !PrivatePublicProtectedMembers
  * !EnumDeclaration
+ * !UnionDeclaration
  * !TemplateDeclaration
  * !SpecializedTemplate
  * !FuctionLevelExceptionSyntax
