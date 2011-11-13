@@ -14,7 +14,7 @@ Infrastructure:
  * *CppBisonParser* adapter
  * *CppScanner* realisation of FileScanner interface
 
---
+----
 For each subsystem here is a list of unit tests.
 
 Database:
