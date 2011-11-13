@@ -14,6 +14,31 @@ Infrastructure:
  * *CppBisonParser* adapter
  * *CppScanner* realisation of FileScanner interface
 
+!Database:
+ * !EmptyCppInDirectory
+ * !NamescpaceInDirectory
+
+!DirectoryTree:
+ * !EmptyDirectory
+ * !NonExistentDirectory
+ * !Subdir
+ * !DirWithSVN
+ * !DirWithCpp
+ * !DirWithTxt
+ * !ParentDir
+ * !FullName
+
+!CommandLine:
+ * !Usage
+ * !Scan
+ * !WrongArgsNumber
+
+!SaveDatabase
+ * !DatabaseSave
+
+!ToCSV
+ * !Name
+
 Cpp parser (this is just a list of unit tests names):
  * !EmptyContent
  * !OneNamespace
