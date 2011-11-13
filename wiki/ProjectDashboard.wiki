@@ -14,6 +14,9 @@ Infrastructure:
  * *CppBisonParser* adapter
  * *CppScanner* realisation of FileScanner interface
 
+--
+For each subsystem here is a list of unit tests.
+
 Database:
  * !EmptyCppInDirectory
  * !NamescpaceInDirectory
@@ -39,7 +42,7 @@ Database:
 ToCSV
  * Name
 
-Cpp parser (this is just a list of unit tests names):
+Cpp parser :
  * !EmptyContent
  * !OneNamespace
  * !NestedNamespace
