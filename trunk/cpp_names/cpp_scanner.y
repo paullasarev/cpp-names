@@ -26,6 +26,7 @@ struct ParserStackType
 {
 	std::string ident;
   NameInfo name;
+  int intvalue;
 	std::list<NameInfo> list;
   bool flag;
 };
@@ -81,13 +82,14 @@ struct AddNamespace
 
 }
 
-%token NAMESPACE '{' '}' QUALIFIER UNQUALIFIER CLASS STRUCT
+%token NAMESPACE '{' '}' QUALIFIER UNQUALIFIER CLASS STRUCT ENUM
 %left CONST '*' '&'
-%token '(' ')' ';' ',' 
-%token<ident> IDENT FUNCTION_BODY
+%token '(' ')' ';' ',' '='
+%token<ident> IDENT FUNCTION_BODY 
+%token<intvalue> INTVALUE
 %type<list> program declaration_list name_space parameter_list nonempty_parameter_list
-%type<list> class_body class_definition
-%type<name> qualified_name type parameter classname
+%type<list> class_body class_definition 
+%type<name> qualified_name type parameter class_name enum_name
 %type<name> forward_declaration function_declaration function_definition name_declaration
 %type<flag> constqualifier
 
@@ -132,14 +134,20 @@ name_declaration:
   | function_definition
 
 class_definition:
-  classname '{' class_body '}' ';' {
+  class_name '{' class_body '}' ';' {
 		$$ = $3;
 		for_each($$.begin(), $$.end(), AddNamespace($1.Name));
 		$$.push_back($1);
   }
+  | enum_name '{' {
+    begin_function_body(scanner);
+  }  
+  FUNCTION_BODY ';'  {
+ 		$$.push_back($1);
+  }
   ;
 
-classname:
+class_name:
   CLASS IDENT {
     $$ = NameInfo($2, NameInfo::NAME_CLASS);
   }
@@ -147,6 +155,11 @@ classname:
     $$ = NameInfo($2, NameInfo::NAME_STRUCT);
   }
   ;
+
+enum_name:
+  ENUM IDENT {
+    $$ = NameInfo($2, NameInfo::NAME_ENUM);
+  }
 
 class_body: {}
   | class_body name_declaration {
@@ -160,7 +173,7 @@ class_body: {}
   ;
 
 forward_declaration:
-  classname ';' {
+  class_name ';' {
     $$ = $1;
   }
   ;

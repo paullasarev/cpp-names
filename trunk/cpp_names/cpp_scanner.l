@@ -18,6 +18,12 @@
 %x FUNCTION
 %x COMMENT
 
+D			[0-9]
+L			[a-zA-Z_]
+H			[a-fA-F0-9]
+E			[Ee][+-]?{D}+
+FLOATSPEC		(f|F|l|L)
+INTSPEC			(u|U|l|L)*
 NL \r?\n
 SPACE [ \t]
 IDENT [A-Za-z_][A-Za-z0-9_]*
@@ -52,6 +58,12 @@ LINECOMMENT ^{SPACE}*"//"[^\r\n]*{NL}
 "const"  { return CppBisonParser::token::CONST; }
 "class"  { return CppBisonParser::token::CLASS; }
 "struct"  { return CppBisonParser::token::STRUCT; }
+"enum"  { return CppBisonParser::token::ENUM; }
+
+0{D}+{INTSPEC}? { 
+  yylval->intvalue = std::atoi(yytext); 
+  return CppBisonParser::token::INTVALUE; 
+}
 
 \{  { return '{'; }
 \}  {	return '}'; }
@@ -61,6 +73,7 @@ LINECOMMENT ^{SPACE}*"//"[^\r\n]*{NL}
 \,  { return ','; }
 \*  { return '*'; }
 \&  { return '&'; }
+\=  { return '='; }
 
 (^|{SPACE}+)"::" { 
   return CppBisonParser::token::UNQUALIFIER;
