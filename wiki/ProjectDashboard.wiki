@@ -29,8 +29,8 @@ Database:
  * !FullName
 
 !CommandLine:
- * !Usage
- * !Scan
+ * Usage
+ * Scan
  * !WrongArgsNumber
 
 !SaveDatabase
