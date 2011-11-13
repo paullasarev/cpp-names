@@ -1,6 +1,6 @@
 #summary Design and technologies
 
-Desing principles:
+Design principles:
  * [http://en.wikipedia.org/wiki/Test-driven_development Test driven development]
  * [http://en.wikipedia.org/wiki/Mock_object Mocking conception]
   * [http://www.jmock.org/oopsla2004.pdf Steve Freeman, Nat Pryce, Tim Mackinnon, Joe Walnes: Mock Roles, not Objects]
