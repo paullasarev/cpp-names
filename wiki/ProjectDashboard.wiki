@@ -21,8 +21,8 @@ Database:
 !DirectoryTree:
  * !EmptyDirectory
  * !NonExistentDirectory
- * !Subdir
- * !DirWithSVN
+ * Subdir
+ * DirWithSVN
  * !DirWithCpp
  * !DirWithTxt
  * !ParentDir
