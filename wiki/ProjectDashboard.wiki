@@ -36,8 +36,8 @@ Database:
 !SaveDatabase
  * !DatabaseSave
 
-!ToCSV
- * !Name
+ToCSV
+ * Name
 
 Cpp parser (this is just a list of unit tests names):
  * !EmptyContent
