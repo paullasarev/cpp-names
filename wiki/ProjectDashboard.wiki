@@ -87,7 +87,7 @@ Refactoring:
  * !UnionDeclaration
  * !TemplateDeclaration
  * !SpecializedTemplate
- * !FuctionLevelExceptionSyntax
+ * !FuctionLevelException
  * !PreprocessorDefine
  * !PreprocessorIfdef
  * !PreprocessorIfndef
