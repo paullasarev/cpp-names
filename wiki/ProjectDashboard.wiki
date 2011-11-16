@@ -76,6 +76,11 @@ Cpp parser :
  
 =Planned  features=
 
+Refactoring
+ * switch from recogintion-and-action to syntax-tree-and-visitors parser design
+ * switch build system to [http://en.wikipedia.org/wiki/Cmake cmake]
+
+
 !CppParser:
  * !PrivatePublicProtectedMembers
  * !EnumDeclaration
