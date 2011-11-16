@@ -83,7 +83,7 @@ Refactoring:
 
 
 !CppParser:
- * !PrivatePublicProtectedMembers
+ * !PrivatePublicProtected
  * !UnionDeclaration
  * !TemplateDeclaration
  * !SpecializedTemplate
