@@ -77,8 +77,8 @@ Cpp parser :
 =Planned  features=
 
 Refactoring:
- * switch from recogintion-and-action to syntax-tree-and-visitors parser design
  * switch build system to [http://en.wikipedia.org/wiki/Cmake cmake], test in [http://en.wikipedia.org/wiki/Cygwin cygwin], [http://en.wikipedia.org/wiki/Mingw mingw/msys] and [http://en.wikipedia.org/wiki/Linux linux] environment
+ * switch from recogintion-and-action to syntax-tree-and-visitors parser design
 
 
 !CppParser:
