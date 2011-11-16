@@ -6,7 +6,6 @@
 %option c++
 %option batch
 %option outfile="cpp_scanner_l.cpp"
-%option nodefault
 %option yyclass="CppFlexScanner"
 %option noyywrap
 %option nounistd
