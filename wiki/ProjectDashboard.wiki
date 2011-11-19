@@ -91,6 +91,7 @@ Infrastructure:
  * !VirtualClassMethod
  * !AbstractClassMethod
  * !FuctionLevelException
+ * !FriendDeclaration
  * !TypedefDeclaration
  * !TemplateDeclaration
  * !SpecializedTemplate
