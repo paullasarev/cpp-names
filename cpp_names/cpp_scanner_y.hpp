@@ -250,10 +250,11 @@ namespace CppNames {
      PRIVATE = 265,
      PUBLIC = 266,
      PROTECTED = 267,
-     CONST = 268,
-     IDENT = 269,
-     FUNCTION_BODY = 270,
-     INTVALUE = 271
+     VIRTUAL = 268,
+     CONST = 269,
+     IDENT = 270,
+     FUNCTION_BODY = 271,
+     INTVALUE = 272
    };
 
     };
@@ -347,10 +348,10 @@ namespace CppNames {
     /// - if positive, shift that token.
     /// - if negative, reduce the rule which number is the opposite.
     /// - if zero, do what YYDEFACT says.
-    static const unsigned char yytable_[];
+    static const signed char yytable_[];
     static const signed char yytable_ninf_;
 
-    static const unsigned char yycheck_[];
+    static const signed char yycheck_[];
 
     /// For a state, its accessing symbol.
     static const unsigned char yystos_[];
@@ -430,7 +431,7 @@ namespace CppNames {
 } // CppNames
 
 /* Line 34 of lalr1.cc  */
-#line 434 "cpp_scanner_y.hpp"
+#line 435 "cpp_scanner_y.hpp"
 
 
 

@@ -455,7 +455,7 @@ namespace CppNames {
 	  case 2:
 
 /* Line 677 of lalr1.cc  */
-#line 185 "cpp_scanner.y"
+#line 186 "cpp_scanner.y"
     {
 		for_each((yysemantic_stack_[(1) - (1)].list).begin(), (yysemantic_stack_[(1) - (1)].list).end(), AddName(context.names));
 	}
@@ -464,7 +464,7 @@ namespace CppNames {
   case 3:
 
 /* Line 677 of lalr1.cc  */
-#line 191 "cpp_scanner.y"
+#line 192 "cpp_scanner.y"
     {
 		(yyval.list) = (yysemantic_stack_[(5) - (4)].list);
 		for_each((yyval.list).begin(), (yyval.list).end(), AddNamespace((yysemantic_stack_[(5) - (2)].ident)));
@@ -475,7 +475,7 @@ namespace CppNames {
   case 4:
 
 /* Line 677 of lalr1.cc  */
-#line 196 "cpp_scanner.y"
+#line 197 "cpp_scanner.y"
     {
 		(yyval.list) = (yysemantic_stack_[(4) - (3)].list);
 		for_each((yyval.list).begin(), (yyval.list).end(), AddNamespace("anonymous"));
@@ -486,14 +486,14 @@ namespace CppNames {
   case 5:
 
 /* Line 677 of lalr1.cc  */
-#line 203 "cpp_scanner.y"
+#line 204 "cpp_scanner.y"
     { }
     break;
 
   case 6:
 
 /* Line 677 of lalr1.cc  */
-#line 204 "cpp_scanner.y"
+#line 205 "cpp_scanner.y"
     {
 		(yyval.list) = (yysemantic_stack_[(2) - (1)].list);
 		(yyval.list).insert((yyval.list).end(), (yysemantic_stack_[(2) - (2)].list).begin(), (yysemantic_stack_[(2) - (2)].list).end());
@@ -503,7 +503,7 @@ namespace CppNames {
   case 7:
 
 /* Line 677 of lalr1.cc  */
-#line 208 "cpp_scanner.y"
+#line 209 "cpp_scanner.y"
     {
     (yyval.list) = (yysemantic_stack_[(2) - (1)].list);
     (yyval.list).push_back((yysemantic_stack_[(2) - (2)].name));
@@ -513,7 +513,7 @@ namespace CppNames {
   case 8:
 
 /* Line 677 of lalr1.cc  */
-#line 212 "cpp_scanner.y"
+#line 213 "cpp_scanner.y"
     {
 		(yyval.list) = (yysemantic_stack_[(2) - (1)].list);
 		(yyval.list).insert((yyval.list).end(), (yysemantic_stack_[(2) - (2)].list).begin(), (yysemantic_stack_[(2) - (2)].list).end());
@@ -523,7 +523,7 @@ namespace CppNames {
   case 12:
 
 /* Line 677 of lalr1.cc  */
-#line 225 "cpp_scanner.y"
+#line 226 "cpp_scanner.y"
     {
       context.scopes.PushScope((yysemantic_stack_[(1) - (1)].name));
     }
@@ -532,7 +532,7 @@ namespace CppNames {
   case 13:
 
 /* Line 677 of lalr1.cc  */
-#line 229 "cpp_scanner.y"
+#line 230 "cpp_scanner.y"
     {
       (yysemantic_stack_[(4) - (1)].name).Parents = (yysemantic_stack_[(4) - (3)].list);
     }
@@ -541,7 +541,7 @@ namespace CppNames {
   case 14:
 
 /* Line 677 of lalr1.cc  */
-#line 233 "cpp_scanner.y"
+#line 234 "cpp_scanner.y"
     {
 		  (yyval.list) = (yysemantic_stack_[(8) - (6)].list);
 		  for_each((yyval.list).begin(), (yyval.list).end(), AddNamespace((yysemantic_stack_[(8) - (1)].name).Name));
@@ -553,7 +553,7 @@ namespace CppNames {
   case 15:
 
 /* Line 677 of lalr1.cc  */
-#line 240 "cpp_scanner.y"
+#line 241 "cpp_scanner.y"
     {
       begin_function_body(scanner);
     }
@@ -562,7 +562,7 @@ namespace CppNames {
   case 16:
 
 /* Line 677 of lalr1.cc  */
-#line 244 "cpp_scanner.y"
+#line 245 "cpp_scanner.y"
     {
  		  (yyval.list).push_back((yysemantic_stack_[(5) - (1)].name));
     }
@@ -571,7 +571,7 @@ namespace CppNames {
   case 17:
 
 /* Line 677 of lalr1.cc  */
-#line 248 "cpp_scanner.y"
+#line 249 "cpp_scanner.y"
     {
       begin_function_body(scanner);
     }
@@ -580,7 +580,7 @@ namespace CppNames {
   case 18:
 
 /* Line 677 of lalr1.cc  */
-#line 252 "cpp_scanner.y"
+#line 253 "cpp_scanner.y"
     {
  		  (yyval.list).push_back((yysemantic_stack_[(5) - (1)].name));
     }
@@ -589,7 +589,7 @@ namespace CppNames {
   case 19:
 
 /* Line 677 of lalr1.cc  */
-#line 258 "cpp_scanner.y"
+#line 259 "cpp_scanner.y"
     {
     }
     break;
@@ -597,7 +597,7 @@ namespace CppNames {
   case 20:
 
 /* Line 677 of lalr1.cc  */
-#line 261 "cpp_scanner.y"
+#line 262 "cpp_scanner.y"
     {
       (yyval.list) = (yysemantic_stack_[(2) - (2)].list);
     }
@@ -606,7 +606,7 @@ namespace CppNames {
   case 21:
 
 /* Line 677 of lalr1.cc  */
-#line 267 "cpp_scanner.y"
+#line 268 "cpp_scanner.y"
     {
       (yyval.list).push_back((yysemantic_stack_[(1) - (1)].name));
     }
@@ -615,7 +615,7 @@ namespace CppNames {
   case 22:
 
 /* Line 677 of lalr1.cc  */
-#line 271 "cpp_scanner.y"
+#line 272 "cpp_scanner.y"
     {
       (yyval.list) = (yysemantic_stack_[(3) - (1)].list);
       (yyval.list).push_back((yysemantic_stack_[(3) - (3)].name));
@@ -625,29 +625,31 @@ namespace CppNames {
   case 23:
 
 /* Line 677 of lalr1.cc  */
-#line 278 "cpp_scanner.y"
+#line 279 "cpp_scanner.y"
     {
-      (yyval.name) = (yysemantic_stack_[(1) - (1)].name);
+      (yyval.name) = (yysemantic_stack_[(2) - (2)].name);
       (yyval.name).Access = context.scopes.ScopeAccess();
       (yyval.name).Type = NameInfo::NAME_CLASS;
+      (yyval.name).IsVirtual = (yysemantic_stack_[(2) - (1)].flag);
     }
     break;
 
   case 24:
 
 /* Line 677 of lalr1.cc  */
-#line 284 "cpp_scanner.y"
+#line 286 "cpp_scanner.y"
     {
-      (yyval.name) = (yysemantic_stack_[(2) - (2)].name);
-      (yyval.name).Access = (yysemantic_stack_[(2) - (1)].access);
+      (yyval.name) = (yysemantic_stack_[(3) - (3)].name);
+      (yyval.name).Access = (yysemantic_stack_[(3) - (2)].access);
       (yyval.name).Type = NameInfo::NAME_CLASS;
+      (yyval.name).IsVirtual = (yysemantic_stack_[(3) - (1)].flag);
     }
     break;
 
   case 25:
 
 /* Line 677 of lalr1.cc  */
-#line 292 "cpp_scanner.y"
+#line 295 "cpp_scanner.y"
     {
     (yyval.name) = NameInfo((yysemantic_stack_[(2) - (2)].ident), NameInfo::NAME_CLASS);
   }
@@ -656,7 +658,7 @@ namespace CppNames {
   case 26:
 
 /* Line 677 of lalr1.cc  */
-#line 295 "cpp_scanner.y"
+#line 298 "cpp_scanner.y"
     {
     (yyval.name) = NameInfo((yysemantic_stack_[(2) - (2)].ident), NameInfo::NAME_STRUCT);
     (yyval.name).Access = NameInfo::ACCESS_PUBLIC;
@@ -666,7 +668,7 @@ namespace CppNames {
   case 27:
 
 /* Line 677 of lalr1.cc  */
-#line 302 "cpp_scanner.y"
+#line 305 "cpp_scanner.y"
     {
     (yyval.name) = NameInfo((yysemantic_stack_[(2) - (2)].ident), NameInfo::NAME_ENUM);
   }
@@ -675,7 +677,7 @@ namespace CppNames {
   case 28:
 
 /* Line 677 of lalr1.cc  */
-#line 307 "cpp_scanner.y"
+#line 310 "cpp_scanner.y"
     {
     (yyval.name) = NameInfo((yysemantic_stack_[(2) - (2)].ident), NameInfo::NAME_UNION);
   }
@@ -684,14 +686,14 @@ namespace CppNames {
   case 29:
 
 /* Line 677 of lalr1.cc  */
-#line 311 "cpp_scanner.y"
+#line 314 "cpp_scanner.y"
     {}
     break;
 
   case 30:
 
 /* Line 677 of lalr1.cc  */
-#line 312 "cpp_scanner.y"
+#line 315 "cpp_scanner.y"
     {
     (yyval.list) = (yysemantic_stack_[(3) - (1)].list);
     context.scopes.SetAccess((yysemantic_stack_[(3) - (2)].access));
@@ -701,7 +703,7 @@ namespace CppNames {
   case 31:
 
 /* Line 677 of lalr1.cc  */
-#line 316 "cpp_scanner.y"
+#line 319 "cpp_scanner.y"
     {
     (yysemantic_stack_[(2) - (2)].name).Access = context.scopes.ScopeAccess();
     (yyval.list) = (yysemantic_stack_[(2) - (1)].list);
@@ -712,7 +714,7 @@ namespace CppNames {
   case 32:
 
 /* Line 677 of lalr1.cc  */
-#line 321 "cpp_scanner.y"
+#line 324 "cpp_scanner.y"
     {
 		(yyval.list) = (yysemantic_stack_[(2) - (1)].list);
 		(yyval.list).insert((yyval.list).end(), (yysemantic_stack_[(2) - (2)].list).begin(), (yysemantic_stack_[(2) - (2)].list).end());
@@ -722,28 +724,28 @@ namespace CppNames {
   case 33:
 
 /* Line 677 of lalr1.cc  */
-#line 328 "cpp_scanner.y"
+#line 331 "cpp_scanner.y"
     { (yyval.access) = NameInfo::ACCESS_PUBLIC; }
     break;
 
   case 34:
 
 /* Line 677 of lalr1.cc  */
-#line 329 "cpp_scanner.y"
+#line 332 "cpp_scanner.y"
     { (yyval.access) = NameInfo::ACCESS_PRIVATE; }
     break;
 
   case 35:
 
 /* Line 677 of lalr1.cc  */
-#line 330 "cpp_scanner.y"
+#line 333 "cpp_scanner.y"
     { (yyval.access) = NameInfo::ACCESS_PROTECTED; }
     break;
 
   case 36:
 
 /* Line 677 of lalr1.cc  */
-#line 333 "cpp_scanner.y"
+#line 336 "cpp_scanner.y"
     {
     (yyval.name) = (yysemantic_stack_[(2) - (1)].name);
   }
@@ -752,18 +754,19 @@ namespace CppNames {
   case 37:
 
 /* Line 677 of lalr1.cc  */
-#line 339 "cpp_scanner.y"
+#line 343 "cpp_scanner.y"
     {
-    (yyval.name) = (yysemantic_stack_[(7) - (2)].name);
+    (yyval.name) = (yysemantic_stack_[(8) - (3)].name);
     (yyval.name).Type = NameInfo::NAME_FUNCTION;
-    (yyval.name).IsConst = (yysemantic_stack_[(7) - (6)].flag);
+    (yyval.name).IsConst = (yysemantic_stack_[(8) - (7)].flag);
+    (yyval.name).IsVirtual = (yysemantic_stack_[(8) - (1)].flag);
   }
     break;
 
   case 38:
 
 /* Line 677 of lalr1.cc  */
-#line 347 "cpp_scanner.y"
+#line 353 "cpp_scanner.y"
     {
     begin_function_body(scanner);
   }
@@ -772,79 +775,79 @@ namespace CppNames {
   case 39:
 
 /* Line 677 of lalr1.cc  */
-#line 350 "cpp_scanner.y"
+#line 357 "cpp_scanner.y"
     {
-    (yyval.name) = (yysemantic_stack_[(9) - (2)].name);
+    (yyval.name) = (yysemantic_stack_[(10) - (3)].name);
     (yyval.name).Type = NameInfo::NAME_FUNCTION;
-    (yyval.name).IsConst = (yysemantic_stack_[(9) - (6)].flag);
+    (yyval.name).IsConst = (yysemantic_stack_[(10) - (7)].flag);
+    (yyval.name).IsVirtual = (yysemantic_stack_[(10) - (1)].flag);
   }
     break;
 
   case 40:
 
 /* Line 677 of lalr1.cc  */
-#line 357 "cpp_scanner.y"
-    {}
+#line 366 "cpp_scanner.y"
+    {
+    (yyval.flag) = false;
+  }
     break;
 
   case 41:
 
 /* Line 677 of lalr1.cc  */
-#line 358 "cpp_scanner.y"
-    {(yyval.list) = (yysemantic_stack_[(1) - (1)].list);}
+#line 370 "cpp_scanner.y"
+    {
+    (yyval.flag) = true;
+  }
     break;
 
   case 42:
 
 /* Line 677 of lalr1.cc  */
-#line 361 "cpp_scanner.y"
-    {
-    (yyval.list).push_back((yysemantic_stack_[(1) - (1)].name));
-  }
+#line 374 "cpp_scanner.y"
+    {}
     break;
 
   case 43:
 
 /* Line 677 of lalr1.cc  */
-#line 364 "cpp_scanner.y"
+#line 375 "cpp_scanner.y"
+    {(yyval.list) = (yysemantic_stack_[(1) - (1)].list);}
+    break;
+
+  case 44:
+
+/* Line 677 of lalr1.cc  */
+#line 378 "cpp_scanner.y"
+    {
+    (yyval.list).push_back((yysemantic_stack_[(1) - (1)].name));
+  }
+    break;
+
+  case 45:
+
+/* Line 677 of lalr1.cc  */
+#line 381 "cpp_scanner.y"
     {
     (yyval.list) = (yysemantic_stack_[(3) - (1)].list);
     (yyval.list).push_back((yysemantic_stack_[(3) - (3)].name));
   }
     break;
 
-  case 44:
-
-/* Line 677 of lalr1.cc  */
-#line 370 "cpp_scanner.y"
-    {
-    (yyval.name) = (yysemantic_stack_[(1) - (1)].name);
-   }
-    break;
-
-  case 45:
-
-/* Line 677 of lalr1.cc  */
-#line 373 "cpp_scanner.y"
-    {
-      (yyval.name) = (yysemantic_stack_[(2) - (1)].name);
-   }
-    break;
-
   case 46:
 
 /* Line 677 of lalr1.cc  */
-#line 378 "cpp_scanner.y"
+#line 387 "cpp_scanner.y"
     {
-      (yyval.name) = (yysemantic_stack_[(1) - (1)].name);
-      (yyval.name).Type = NameInfo::NAME_TYPE;
+    (yyval.name) = (yysemantic_stack_[(1) - (1)].name);
    }
     break;
 
   case 47:
 
 /* Line 677 of lalr1.cc  */
-#line 382 "cpp_scanner.y"
+#line 390 "cpp_scanner.y"
     {
       (yyval.name) = (yysemantic_stack_[(2) - (1)].name);
    }
@@ -853,71 +856,90 @@ namespace CppNames {
   case 48:
 
 /* Line 677 of lalr1.cc  */
-#line 385 "cpp_scanner.y"
+#line 395 "cpp_scanner.y"
     {
-      (yyval.name) = (yysemantic_stack_[(2) - (1)].name);
+      (yyval.name) = (yysemantic_stack_[(1) - (1)].name);
+      (yyval.name).Type = NameInfo::NAME_TYPE;
    }
     break;
 
   case 49:
 
 /* Line 677 of lalr1.cc  */
-#line 388 "cpp_scanner.y"
+#line 399 "cpp_scanner.y"
     {
-      (yyval.name) = (yysemantic_stack_[(3) - (1)].name);
+      (yyval.name) = (yysemantic_stack_[(2) - (1)].name);
    }
     break;
 
   case 50:
 
 /* Line 677 of lalr1.cc  */
-#line 391 "cpp_scanner.y"
+#line 402 "cpp_scanner.y"
     {
-      (yyval.name) = (yysemantic_stack_[(2) - (2)].name);
+      (yyval.name) = (yysemantic_stack_[(2) - (1)].name);
    }
     break;
 
   case 51:
 
 /* Line 677 of lalr1.cc  */
-#line 395 "cpp_scanner.y"
+#line 405 "cpp_scanner.y"
     {
-     (yyval.flag) = false;
+      (yyval.name) = (yysemantic_stack_[(3) - (1)].name);
    }
     break;
 
   case 52:
 
 /* Line 677 of lalr1.cc  */
-#line 398 "cpp_scanner.y"
+#line 408 "cpp_scanner.y"
     {
-     (yyval.flag) = true;
+      (yyval.name) = (yysemantic_stack_[(2) - (2)].name);
    }
     break;
 
   case 53:
 
 /* Line 677 of lalr1.cc  */
-#line 403 "cpp_scanner.y"
+#line 412 "cpp_scanner.y"
     {
-        (yyval.name) = NameInfo((yysemantic_stack_[(1) - (1)].ident));
-      }
+     (yyval.flag) = false;
+   }
     break;
 
   case 54:
 
 /* Line 677 of lalr1.cc  */
-#line 407 "cpp_scanner.y"
+#line 415 "cpp_scanner.y"
+    {
+     (yyval.flag) = true;
+   }
+    break;
+
+  case 55:
+
+/* Line 677 of lalr1.cc  */
+#line 420 "cpp_scanner.y"
+    {
+        (yyval.name) = NameInfo((yysemantic_stack_[(1) - (1)].ident));
+      }
+    break;
+
+  case 56:
+
+/* Line 677 of lalr1.cc  */
+#line 424 "cpp_scanner.y"
     {
       (yyval.name) = NameInfo((yysemantic_stack_[(2) - (2)].ident));
       (yyval.name).Qualified = true;
     }
     break;
 
-  case 55:
+  case 57:
 
 /* Line 677 of lalr1.cc  */
-#line 412 "cpp_scanner.y"
+#line 429 "cpp_scanner.y"
     {
       (yyval.name) = NameInfo((yysemantic_stack_[(3) - (1)].name).Name + "::" + (yysemantic_stack_[(3) - (3)].ident));
     }
@@ -926,7 +948,7 @@ namespace CppNames {
 
 
 /* Line 677 of lalr1.cc  */
-#line 930 "cpp_scanner_y.cpp"
+#line 952 "cpp_scanner_y.cpp"
 	default:
           break;
       }
@@ -1131,19 +1153,20 @@ namespace CppNames {
 
   /* YYPACT[STATE-NUM] -- Index in YYTABLE of the portion describing
      STATE-NUM.  */
-  const signed char CppBisonParser::yypact_ninf_ = -22;
+  const signed char CppBisonParser::yypact_ninf_ = -37;
   const signed char
   CppBisonParser::yypact_[] =
   {
-       -22,    11,    21,   -22,     1,   -21,   -12,     9,    18,    19,
-      50,   -22,   -22,   -22,   -22,    -6,    31,    69,   -22,   -22,
-     -22,    53,    70,   -22,    75,   -22,   -22,   -22,   -22,   -22,
-     -22,   -22,    57,   -22,   -22,   -22,   -22,    68,    66,    58,
-      -1,   -22,    51,    77,    60,    61,   -22,    50,   -22,   -22,
-      10,   -22,   -22,   -22,    71,   -22,    54,    70,   -22,    73,
-      74,    72,    76,   -22,    24,   -22,    51,    70,   -22,   -22,
-     -22,    78,    50,   -22,   -22,    42,   -22,    67,   -22,    79,
-     -22,   -22,    65,   -22,   -22,   -22,   -22,    64,   -22
+       -37,     6,    30,   -37,    -2,    -5,     3,     9,    12,   -37,
+     -37,   -37,   -37,    14,    32,    42,   -37,   -37,   -37,     0,
+     -37,    51,   -37,   -37,   -37,   -37,   -37,    28,   -37,   -37,
+      35,     0,   -37,    -4,    66,    39,   -37,    47,    72,    52,
+      53,   -37,   -37,   -37,   -37,    61,    10,    55,   -37,    48,
+      59,   -37,    -3,   -37,    62,    63,   -37,     0,   -37,   -37,
+      47,   -37,   -37,   -37,     1,    66,   -37,   -37,   -37,    65,
+      64,   -37,    57,   -37,    66,    56,    69,     0,   -37,    67,
+     -37,   -37,    68,   -37,    11,   -37,   -37,   -37,   -37,   -37,
+      70,   -37
   };
 
   /* YYDEFACT[S] -- default rule to reduce with in state S when YYTABLE
@@ -1152,70 +1175,69 @@ namespace CppNames {
   const unsigned char
   CppBisonParser::yydefact_[] =
   {
-         5,     0,     2,     1,     0,     0,     0,     0,     0,     0,
-       0,    53,     6,     7,     8,    12,     0,     0,     9,    10,
-      11,     0,    46,     5,     0,    54,    25,    26,    27,    28,
-      50,    36,    19,    15,    17,    47,    48,     0,     0,     0,
-       0,     5,     0,     0,     0,     0,    49,    40,    55,     4,
-       0,    34,    33,    35,    20,    21,     0,    23,    13,     0,
-       0,     0,    41,    42,    44,     3,     0,    24,    29,    16,
-      18,    51,     0,    45,    22,     0,    52,     0,    43,     0,
-      31,    32,     0,    38,    37,    14,    30,     0,    39
+         5,     0,    40,     1,     0,     0,     0,     0,     0,    41,
+       6,     7,     8,    12,     0,     0,     9,    10,    11,     0,
+       5,     0,    25,    26,    27,    28,    36,    19,    15,    17,
+       0,     0,    55,     0,    48,    40,     5,    40,     0,     0,
+       0,    56,    52,    49,    50,     0,     0,     0,     4,    40,
+      20,    21,     0,    13,     0,     0,    51,    42,    57,     3,
+      40,    34,    33,    35,     0,    23,    29,    16,    18,     0,
+      43,    44,    46,    22,    24,    40,    53,     0,    47,     0,
+      31,    32,     0,    54,     0,    45,    14,    30,    38,    37,
+       0,    39
   };
 
   /* YYPGOTO[NTERM-NUM].  */
   const signed char
   CppBisonParser::yypgoto_[] =
   {
-       -22,   -22,   -22,     3,    15,    23,   -22,   -22,   -22,   -22,
-     -22,   -22,    30,   -22,   -22,   -22,   -22,    25,   -22,   -22,
-     -22,   -22,   -22,   -22,    29,   -10,   -22,   -20
+       -37,   -37,   -37,     7,    15,    16,   -37,   -37,   -37,   -37,
+     -37,   -37,    29,   -37,   -37,   -37,   -37,    18,   -37,   -37,
+     -37,   -37,   -36,   -37,   -37,    17,   -14,   -37,   -33
   };
 
   /* YYDEFGOTO[NTERM-NUM].  */
   const signed char
   CppBisonParser::yydefgoto_[] =
   {
-        -1,     1,    12,     2,    13,    14,    32,    68,    44,    45,
-      43,    54,    55,    15,    16,    17,    75,    56,    18,    19,
-      20,    87,    61,    62,    63,    21,    77,    22
+        -1,     1,    10,     2,    11,    12,    27,    66,    39,    40,
+      38,    50,    51,    13,    14,    15,    75,    64,    16,    17,
+      18,    90,    19,    69,    70,    71,    72,    84,    34
   };
 
   /* YYTABLE[YYPACT[STATE-NUM]].  What to do in state STATE-NUM.  If
      positive, shift that token.  If negative, reduce the rule which
      number is the opposite.  If zero, do what YYDEFACT says.  */
-  const signed char CppBisonParser::yytable_ninf_ = -1;
-  const unsigned char
+  const signed char CppBisonParser::yytable_ninf_ = -3;
+  const signed char
   CppBisonParser::yytable_[] =
   {
-        30,    38,     4,    25,    49,    23,     5,     6,     7,     8,
-       9,     3,    26,     4,    31,    65,    10,     5,     6,     7,
-       8,     9,    57,    11,     4,    24,    40,    10,     5,     6,
-       7,     8,     9,    27,    11,    33,    67,    64,    10,    35,
-      36,    37,    28,    29,    50,    11,    57,    79,    73,     5,
-       6,     7,     8,     9,    51,    52,    53,     5,     5,    10,
-       5,     5,    64,    51,    52,    53,    11,    10,    35,    36,
-      37,    83,    39,    34,    11,    11,    39,    11,    11,    41,
-      42,    58,    48,    46,    47,    59,    60,    84,    86,    88,
-      80,    71,    66,    69,    70,    76,    74,    72,    81,    85,
-      82,    78
+        46,    52,    20,    30,    30,    33,     3,    30,    30,    61,
+      62,    63,    43,    44,    45,    88,    47,    42,    31,    65,
+      22,    32,    32,    21,    52,    32,    32,    35,    23,    57,
+      -2,    74,    89,     4,    24,    26,    28,    25,     5,     6,
+       7,     8,     4,    49,    48,     9,    29,     5,     6,     7,
+       8,     4,    37,    59,     9,    36,     5,     6,     7,     8,
+      41,    79,     9,     9,     5,     6,     7,     8,    61,    62,
+      63,     9,    47,    43,    44,    45,    53,    56,    54,    55,
+      58,    60,    78,    67,    68,    76,    77,    83,    86,    73,
+      80,    81,    87,    82,    85,     0,    91
   };
 
   /* YYCHECK.  */
-  const unsigned char
+  const signed char
   CppBisonParser::yycheck_[] =
   {
-        10,    21,     3,    24,     5,     4,     7,     8,     9,    10,
-      11,     0,    24,     3,    20,     5,    17,     7,     8,     9,
-      10,    11,    42,    24,     3,    24,    23,    17,     7,     8,
-       9,    10,    11,    24,    24,     4,    56,    47,    17,    15,
-      16,    17,    24,    24,    41,    24,    66,     5,    24,     7,
-       8,     9,    10,    11,    12,    13,    14,     7,     7,    17,
-       7,     7,    72,    12,    13,    14,    24,    17,    15,    16,
-      17,     4,     6,     4,    24,    24,     6,    24,    24,     4,
-      23,     4,    24,    15,    18,    25,    25,    20,    23,    25,
-      75,    19,    21,    20,    20,    17,    66,    21,    75,    20,
-      75,    72
+        33,    37,     4,     7,     7,    19,     0,     7,     7,    12,
+      13,    14,    16,    17,    18,     4,     6,    31,    18,    52,
+      25,    25,    25,    25,    60,    25,    25,    20,    25,    19,
+       0,    64,    21,     3,    25,    21,     4,    25,     8,     9,
+      10,    11,     3,    36,     5,    15,     4,     8,     9,    10,
+      11,     3,    24,     5,    15,     4,     8,     9,    10,    11,
+      25,     5,    15,    15,     8,     9,    10,    11,    12,    13,
+      14,    15,     6,    16,    17,    18,     4,    16,    26,    26,
+      25,    22,    25,    21,    21,    20,    22,    18,    21,    60,
+      75,    75,    24,    75,    77,    -1,    26
   };
 
   /* STOS_[STATE-NUM] -- The (internal number of the) accessing
@@ -1223,15 +1245,16 @@ namespace CppNames {
   const unsigned char
   CppBisonParser::yystos_[] =
   {
-         0,    28,    30,     0,     3,     7,     8,     9,    10,    11,
-      17,    24,    29,    31,    32,    40,    41,    42,    45,    46,
-      47,    52,    54,     4,    24,    24,    24,    24,    24,    24,
-      52,    20,    33,     4,     4,    15,    16,    17,    54,     6,
-      30,     4,    23,    37,    35,    36,    15,    18,    24,     5,
-      30,    12,    13,    14,    38,    39,    44,    54,     4,    25,
-      25,    49,    50,    51,    52,     5,    21,    54,    34,    20,
-      20,    19,    21,    24,    39,    43,    17,    53,    51,     5,
-      31,    32,    44,     4,    20,    20,    23,    48,    25
+         0,    29,    31,     0,     3,     8,     9,    10,    11,    15,
+      30,    32,    33,    41,    42,    43,    46,    47,    48,    50,
+       4,    25,    25,    25,    25,    25,    21,    34,     4,     4,
+       7,    18,    25,    54,    56,    31,     4,    24,    38,    36,
+      37,    25,    54,    16,    17,    18,    56,     6,     5,    31,
+      39,    40,    50,     4,    26,    26,    16,    19,    25,     5,
+      22,    12,    13,    14,    45,    56,    35,    21,    21,    51,
+      52,    53,    54,    40,    56,    44,    20,    22,    25,     5,
+      32,    33,    45,    18,    55,    53,    21,    24,     4,    21,
+      49,    26
   };
 
 #if YYDEBUG
@@ -1241,8 +1264,8 @@ namespace CppNames {
   CppBisonParser::yytoken_number_[] =
   {
          0,   256,   257,   258,   123,   125,   259,   260,   261,   262,
-     263,   264,   265,   266,   267,    42,    38,   268,    40,    41,
-      59,    44,    61,    58,   269,   270,   271
+     263,   264,   265,   266,   267,   268,    42,    38,   269,    40,
+      41,    59,    44,    61,    58,   270,   271,   272
   };
 #endif
 
@@ -1250,12 +1273,12 @@ namespace CppNames {
   const unsigned char
   CppBisonParser::yyr1_[] =
   {
-         0,    27,    28,    29,    29,    30,    30,    30,    30,    31,
-      31,    31,    33,    34,    32,    35,    32,    36,    32,    37,
-      37,    38,    38,    39,    39,    40,    40,    41,    42,    43,
-      43,    43,    43,    44,    44,    44,    45,    46,    48,    47,
-      49,    49,    50,    50,    51,    51,    52,    52,    52,    52,
-      52,    53,    53,    54,    54,    54
+         0,    28,    29,    30,    30,    31,    31,    31,    31,    32,
+      32,    32,    34,    35,    33,    36,    33,    37,    33,    38,
+      38,    39,    39,    40,    40,    41,    41,    42,    43,    44,
+      44,    44,    44,    45,    45,    45,    46,    47,    49,    48,
+      50,    50,    51,    51,    52,    52,    53,    53,    54,    54,
+      54,    54,    54,    55,    55,    56,    56,    56
   };
 
   /* YYR2[YYN] -- Number of symbols composing right hand side of rule YYN.  */
@@ -1264,10 +1287,10 @@ namespace CppNames {
   {
          0,     2,     1,     5,     4,     0,     2,     2,     2,     1,
        1,     1,     0,     0,     8,     0,     5,     0,     5,     0,
-       2,     1,     3,     1,     2,     2,     2,     2,     2,     0,
-       3,     2,     2,     1,     1,     1,     2,     7,     0,     9,
-       0,     1,     1,     3,     1,     2,     1,     2,     2,     3,
-       2,     0,     1,     1,     2,     3
+       2,     1,     3,     2,     3,     2,     2,     2,     2,     0,
+       3,     2,     2,     1,     1,     1,     2,     8,     0,    10,
+       0,     1,     0,     1,     1,     3,     1,     2,     1,     2,
+       2,     3,     2,     0,     1,     1,     2,     3
   };
 
 #if YYDEBUG || YYERROR_VERBOSE || YYTOKEN_TABLE
@@ -1278,15 +1301,15 @@ namespace CppNames {
   {
     "$end", "error", "$undefined", "NAMESPACE", "'{'", "'}'", "QUALIFIER",
   "UNQUALIFIER", "CLASS", "STRUCT", "ENUM", "UNION", "PRIVATE", "PUBLIC",
-  "PROTECTED", "'*'", "'&'", "CONST", "'('", "')'", "';'", "','", "'='",
-  "':'", "IDENT", "FUNCTION_BODY", "INTVALUE", "$accept", "program",
-  "name_space", "declaration_list", "name_declaration", "class_definition",
-  "$@1", "$@2", "$@3", "$@4", "class_inheritance", "inheritance_list",
-  "inheritance_name", "class_name", "enum_name", "union_name",
-  "class_body", "access_qualifier", "forward_declaration",
-  "function_declaration", "function_definition", "$@5", "parameter_list",
-  "nonempty_parameter_list", "parameter", "type", "constqualifier",
-  "qualified_name", 0
+  "PROTECTED", "VIRTUAL", "'*'", "'&'", "CONST", "'('", "')'", "';'",
+  "','", "'='", "':'", "IDENT", "FUNCTION_BODY", "INTVALUE", "$accept",
+  "program", "name_space", "declaration_list", "name_declaration",
+  "class_definition", "$@1", "$@2", "$@3", "$@4", "class_inheritance",
+  "inheritance_list", "inheritance_name", "class_name", "enum_name",
+  "union_name", "class_body", "access_qualifier", "forward_declaration",
+  "function_declaration", "function_definition", "$@5", "virtualqualifier",
+  "parameter_list", "nonempty_parameter_list", "parameter", "type",
+  "constqualifier", "qualified_name", 0
   };
 #endif
 
@@ -1295,23 +1318,24 @@ namespace CppNames {
   const CppBisonParser::rhs_number_type
   CppBisonParser::yyrhs_[] =
   {
-        28,     0,    -1,    30,    -1,     3,    24,     4,    30,     5,
-      -1,     3,     4,    30,     5,    -1,    -1,    30,    29,    -1,
-      30,    31,    -1,    30,    32,    -1,    45,    -1,    46,    -1,
-      47,    -1,    -1,    -1,    40,    33,    37,     4,    34,    43,
-       5,    20,    -1,    -1,    41,     4,    35,    25,    20,    -1,
-      -1,    42,     4,    36,    25,    20,    -1,    -1,    23,    38,
-      -1,    39,    -1,    38,    21,    39,    -1,    54,    -1,    44,
-      54,    -1,     8,    24,    -1,     9,    24,    -1,    10,    24,
-      -1,    11,    24,    -1,    -1,    43,    44,    23,    -1,    43,
-      31,    -1,    43,    32,    -1,    13,    -1,    12,    -1,    14,
-      -1,    40,    20,    -1,    52,    54,    18,    49,    19,    53,
-      20,    -1,    -1,    52,    54,    18,    49,    19,    53,     4,
-      48,    25,    -1,    -1,    50,    -1,    51,    -1,    50,    21,
-      51,    -1,    52,    -1,    52,    24,    -1,    54,    -1,    52,
-      15,    -1,    52,    16,    -1,    52,    17,    15,    -1,    17,
-      52,    -1,    -1,    17,    -1,    24,    -1,     7,    24,    -1,
-      54,     6,    24,    -1
+        29,     0,    -1,    31,    -1,     3,    25,     4,    31,     5,
+      -1,     3,     4,    31,     5,    -1,    -1,    31,    30,    -1,
+      31,    32,    -1,    31,    33,    -1,    46,    -1,    47,    -1,
+      48,    -1,    -1,    -1,    41,    34,    38,     4,    35,    44,
+       5,    21,    -1,    -1,    42,     4,    36,    26,    21,    -1,
+      -1,    43,     4,    37,    26,    21,    -1,    -1,    24,    39,
+      -1,    40,    -1,    39,    22,    40,    -1,    50,    56,    -1,
+      50,    45,    56,    -1,     8,    25,    -1,     9,    25,    -1,
+      10,    25,    -1,    11,    25,    -1,    -1,    44,    45,    24,
+      -1,    44,    32,    -1,    44,    33,    -1,    13,    -1,    12,
+      -1,    14,    -1,    41,    21,    -1,    50,    54,    56,    19,
+      51,    20,    55,    21,    -1,    -1,    50,    54,    56,    19,
+      51,    20,    55,     4,    49,    26,    -1,    -1,    15,    -1,
+      -1,    52,    -1,    53,    -1,    52,    22,    53,    -1,    54,
+      -1,    54,    25,    -1,    56,    -1,    54,    16,    -1,    54,
+      17,    -1,    54,    18,    16,    -1,    18,    54,    -1,    -1,
+      18,    -1,    25,    -1,     7,    25,    -1,    56,     6,    25,
+      -1
   };
 
   /* YYPRHS[YYN] -- Index of the first RHS symbol of rule number YYN in
@@ -1321,22 +1345,22 @@ namespace CppNames {
   {
          0,     0,     3,     5,    11,    16,    17,    20,    23,    26,
       28,    30,    32,    33,    34,    43,    44,    50,    51,    57,
-      58,    61,    63,    67,    69,    72,    75,    78,    81,    84,
-      85,    89,    92,    95,    97,    99,   101,   104,   112,   113,
-     123,   124,   126,   128,   132,   134,   137,   139,   142,   145,
-     149,   152,   153,   155,   157,   160
+      58,    61,    63,    67,    70,    74,    77,    80,    83,    86,
+      87,    91,    94,    97,    99,   101,   103,   106,   115,   116,
+     127,   128,   130,   131,   133,   135,   139,   141,   144,   146,
+     149,   152,   156,   159,   160,   162,   164,   167
   };
 
   /* YYRLINE[YYN] -- Source line where rule number YYN was defined.  */
   const unsigned short int
   CppBisonParser::yyrline_[] =
   {
-         0,   185,   185,   191,   196,   203,   204,   208,   212,   219,
-     220,   221,   225,   229,   224,   240,   239,   248,   247,   258,
-     260,   266,   270,   277,   283,   292,   295,   302,   307,   311,
-     312,   316,   321,   328,   329,   330,   333,   339,   347,   347,
-     357,   358,   361,   364,   370,   373,   378,   382,   385,   388,
-     391,   395,   398,   403,   407,   412
+         0,   186,   186,   192,   197,   204,   205,   209,   213,   220,
+     221,   222,   226,   230,   225,   241,   240,   249,   248,   259,
+     261,   267,   271,   278,   285,   295,   298,   305,   310,   314,
+     315,   319,   324,   331,   332,   333,   336,   342,   353,   352,
+     366,   369,   374,   375,   378,   381,   387,   390,   395,   399,
+     402,   405,   408,   412,   415,   420,   424,   429
   };
 
   // Print the state stack on the debug stream.
@@ -1379,10 +1403,10 @@ namespace CppNames {
            0,     2,     2,     2,     2,     2,     2,     2,     2,     2,
        2,     2,     2,     2,     2,     2,     2,     2,     2,     2,
        2,     2,     2,     2,     2,     2,     2,     2,     2,     2,
-       2,     2,     2,     2,     2,     2,     2,     2,    16,     2,
-      18,    19,    15,     2,    21,     2,     2,     2,     2,     2,
-       2,     2,     2,     2,     2,     2,     2,     2,    23,    20,
-       2,    22,     2,     2,     2,     2,     2,     2,     2,     2,
+       2,     2,     2,     2,     2,     2,     2,     2,    17,     2,
+      19,    20,    16,     2,    22,     2,     2,     2,     2,     2,
+       2,     2,     2,     2,     2,     2,     2,     2,    24,    21,
+       2,    23,     2,     2,     2,     2,     2,     2,     2,     2,
        2,     2,     2,     2,     2,     2,     2,     2,     2,     2,
        2,     2,     2,     2,     2,     2,     2,     2,     2,     2,
        2,     2,     2,     2,     2,     2,     2,     2,     2,     2,
@@ -1402,8 +1426,8 @@ namespace CppNames {
        2,     2,     2,     2,     2,     2,     2,     2,     2,     2,
        2,     2,     2,     2,     2,     2,     2,     2,     2,     2,
        2,     2,     2,     2,     2,     2,     1,     2,     3,     6,
-       7,     8,     9,    10,    11,    12,    13,    14,    17,    24,
-      25,    26
+       7,     8,     9,    10,    11,    12,    13,    14,    15,    18,
+      25,    26,    27
     };
     if ((unsigned int) t <= yyuser_token_number_max_)
       return translate_table[t];
@@ -1412,15 +1436,15 @@ namespace CppNames {
   }
 
   const int CppBisonParser::yyeof_ = 0;
-  const int CppBisonParser::yylast_ = 101;
-  const int CppBisonParser::yynnts_ = 28;
+  const int CppBisonParser::yylast_ = 96;
+  const int CppBisonParser::yynnts_ = 29;
   const int CppBisonParser::yyempty_ = -2;
   const int CppBisonParser::yyfinal_ = 3;
   const int CppBisonParser::yyterror_ = 1;
   const int CppBisonParser::yyerrcode_ = 256;
-  const int CppBisonParser::yyntokens_ = 27;
+  const int CppBisonParser::yyntokens_ = 28;
 
-  const unsigned int CppBisonParser::yyuser_token_number_max_ = 271;
+  const unsigned int CppBisonParser::yyuser_token_number_max_ = 272;
   const CppBisonParser::token_number_type CppBisonParser::yyundef_token_ = 2;
 
 
@@ -1429,11 +1453,11 @@ namespace CppNames {
 } // CppNames
 
 /* Line 1053 of lalr1.cc  */
-#line 1433 "cpp_scanner_y.cpp"
+#line 1457 "cpp_scanner_y.cpp"
 
 
 /* Line 1055 of lalr1.cc  */
-#line 418 "cpp_scanner.y"
+#line 435 "cpp_scanner.y"
 
 
 #include "cpp_scanner_flex.h"

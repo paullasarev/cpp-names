@@ -167,6 +167,7 @@ struct AddNamespace
 }
 
 %token NAMESPACE '{' '}' QUALIFIER UNQUALIFIER CLASS STRUCT ENUM UNION PRIVATE PUBLIC PROTECTED
+%token VIRTUAL
 %left CONST '*' '&'
 %token '(' ')' ';' ',' '=' ':'
 %token<ident> IDENT FUNCTION_BODY 
@@ -177,7 +178,7 @@ struct AddNamespace
 %type<name> forward_declaration function_declaration function_definition name_declaration
 %type<list> class_inheritance inheritance_list
 %type<name> inheritance_name
-%type<flag> constqualifier
+%type<flag> constqualifier virtualqualifier
 %type<access> access_qualifier
 
 %%
@@ -274,17 +275,19 @@ inheritance_list:
     }
 
 inheritance_name:
-  qualified_name
-    {
-      $$ = $1;
-      $$.Access = context.scopes.ScopeAccess();
-      $$.Type = NameInfo::NAME_CLASS;
-    }
-  | access_qualifier qualified_name
+  virtualqualifier qualified_name
     {
       $$ = $2;
-      $$.Access = $1;
+      $$.Access = context.scopes.ScopeAccess();
       $$.Type = NameInfo::NAME_CLASS;
+      $$.IsVirtual = $1;
+    }
+  | virtualqualifier access_qualifier qualified_name
+    {
+      $$ = $3;
+      $$.Access = $2;
+      $$.Type = NameInfo::NAME_CLASS;
+      $$.IsVirtual = $1;
     }   
   ;
 
@@ -336,23 +339,37 @@ forward_declaration:
   ;
 
 function_declaration:
-  type qualified_name '(' parameter_list ')' constqualifier ';' {
-    $$ = $2;
+  virtualqualifier type qualified_name '(' parameter_list ')' constqualifier ';' 
+  {
+    $$ = $3;
     $$.Type = NameInfo::NAME_FUNCTION;
-    $$.IsConst = $6;
+    $$.IsConst = $7;
+    $$.IsVirtual = $1;
   }
   ;
 
 function_definition:
-  type qualified_name '(' parameter_list ')' constqualifier '{' {
+  virtualqualifier type qualified_name '(' parameter_list ')' constqualifier '{' 
+  {
     begin_function_body(scanner);
   }  
-  FUNCTION_BODY {
-    $$ = $2;
+  FUNCTION_BODY 
+  {
+    $$ = $3;
     $$.Type = NameInfo::NAME_FUNCTION;
-    $$.IsConst = $6;
+    $$.IsConst = $7;
+    $$.IsVirtual = $1;
   }
   ;
+
+virtualqualifier:
+  {
+    $$ = false;
+  }
+  | VIRTUAL
+  {
+    $$ = true;
+  }
 
 parameter_list: {}
   | nonempty_parameter_list {$$ = $1;}
