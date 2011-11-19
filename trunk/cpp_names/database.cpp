@@ -156,6 +156,24 @@ namespace CppNames
     }
   }
 
+  bool FindNameInfo(NameInfoList& names, const std::string name, NameInfo &info)
+  {
+    NameInfo key;
+    key.Name = name;
+
+    NameInfoList::iterator found = std::find(names.begin(), names.end(), key);
+    if (found == names.end())
+    {
+      return false;
+    }
+    else
+    {
+      info = *found;
+      return true;
+    }
+  }
+
+
   NameToCSV::NameToCSV(std::ostream& out)
     : Out(out)
   {
