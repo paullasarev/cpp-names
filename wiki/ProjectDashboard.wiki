@@ -89,9 +89,10 @@ Cpp parser :
  * !FuctionLevelException
  * !FriendClassDeclaration
  * !FriendFunctionDeclaration
- 
+ * !TypedefDeclaration
 
-Passed unit tests/Total unit test: 65/65
+
+*Passed unit tests/Total unit test: 68/68*
 
 
 =Planned  features=
@@ -107,7 +108,6 @@ Infrastructure:
  * Version
 
 !CppParser:
- * !TypedefDeclaration
  * !TemplateDeclaration
  * !SpecializedTemplate
  * !PreprocessorDefine
