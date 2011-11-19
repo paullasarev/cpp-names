@@ -87,6 +87,8 @@ Cpp parser :
  * !ClassVirtualInheritance
  * !AbstractClassMethod
  * !FuctionLevelException
+ * !FriendClassDeclaration
+ * !FriendFunctionDeclaration
  
 
 Passed unit tests/Total unit test: 65/65
@@ -105,7 +107,6 @@ Infrastructure:
  * Version
 
 !CppParser:
- * !FriendDeclaration
  * !TypedefDeclaration
  * !TemplateDeclaration
  * !SpecializedTemplate
