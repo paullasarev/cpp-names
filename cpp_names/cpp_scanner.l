@@ -65,6 +65,7 @@ LINECOMMENT ^{SPACE}*"//"[^\r\n]*{NL}
 "virtual"  { return CppBisonParser::token::VIRTUAL; }
 "catch"  { return CppBisonParser::token::CATCH; }
 "friend"  { return CppBisonParser::token::FRIEND; }
+"typedef"  { return CppBisonParser::token::TYPEDEF; }
 
 {D}+{INTSPEC}? {
   yylval->intvalue = std::atoi(yytext); 

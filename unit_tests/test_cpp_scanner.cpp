@@ -910,6 +910,20 @@ namespace CppNames
         CHECK(true == info.IsFriend);
       }
       
+      TESTCASE(Scan, TypedefDeclaration)
+      {
+        std::stringstream content(
+          "typedef int First;\n"
+          );
+        NameInfoSet names;
+        CppScanner scanner;
+        CHECK(scanner.Scan(content, names));
+
+        NameInfo info;
+        CHECK(FindNameInfo(names, "First", info));
+        EQUAL(NameInfo::NAME_TYPE, info.Type);
+        EQUAL(std::string("int"), info.Alias);
+      }
       
     }
   }

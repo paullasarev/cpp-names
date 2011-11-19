@@ -12,6 +12,8 @@ namespace CppNames
   struct NameInfo
   {
     std::string Name;
+    std::string Alias;
+
     enum NameType
     {
       NAME_SYMBOL,

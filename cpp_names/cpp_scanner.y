@@ -167,7 +167,7 @@ struct AddNamespace
 }
 
 %token NAMESPACE '{' '}' QUALIFIER UNQUALIFIER CLASS STRUCT ENUM UNION PRIVATE PUBLIC PROTECTED
-%token VIRTUAL CATCH THREEDOT FRIEND
+%token VIRTUAL CATCH THREEDOT FRIEND TYPEDEF
 %left CONST '*' '&'
 %token '(' ')' ';' ',' '=' ':'
 %token<ident> IDENT FUNCTION_BODY 
@@ -175,7 +175,7 @@ struct AddNamespace
 %type<list> program declaration_list namespace_declaration parameter_list nonempty_parameter_list
 %type<list> class_body class_definition 
 %type<name> qualified_name type parameter class_name enum_name union_name
-%type<name> forward_declaration function_declaration function_definition name_declaration
+%type<name> forward_declaration function_declaration function_definition name_declaration typedef_declaration
 %type<list> class_inheritance inheritance_list catchlist
 %type<name> inheritance_name
 %type<flag> constqualifier virtualqualifier abstractqualifier
@@ -223,6 +223,7 @@ name_declaration:
   forward_declaration
   | function_declaration
   | function_definition
+  | typedef_declaration
 
 class_definition:
     class_name 
@@ -334,6 +335,14 @@ access_qualifier:
   PUBLIC { $$ = NameInfo::ACCESS_PUBLIC; }
   | PRIVATE { $$ = NameInfo::ACCESS_PRIVATE; }
   | PROTECTED { $$ = NameInfo::ACCESS_PROTECTED; }
+
+typedef_declaration:
+  TYPEDEF type IDENT ';' 
+  {
+     $$ = NameInfo($3, NameInfo::NAME_TYPE);
+     $$.Alias = $2.Name;
+
+  }
 
 forward_declaration:
   class_name ';' {
