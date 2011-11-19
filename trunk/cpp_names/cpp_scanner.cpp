@@ -11,7 +11,8 @@ namespace CppNames
   bool CppScanner::Scan(std::istream& inputStream, NameInfoSet& names)
   {
     CppFlexScanner scanner(&inputStream);
-    CppBisonParser parser(scanner, names);
+    CppBisonParserContext context(names);
+    CppBisonParser parser(scanner, context);
     return parser.parse() == 0;
   }
 }

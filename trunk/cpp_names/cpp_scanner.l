@@ -58,6 +58,10 @@ LINECOMMENT ^{SPACE}*"//"[^\r\n]*{NL}
 "class"  { return CppBisonParser::token::CLASS; }
 "struct"  { return CppBisonParser::token::STRUCT; }
 "enum"  { return CppBisonParser::token::ENUM; }
+"union"  { return CppBisonParser::token::UNION; }
+"private"  { return CppBisonParser::token::PRIVATE; }
+"public"  { return CppBisonParser::token::PUBLIC; }
+"protected"  { return CppBisonParser::token::PROTECTED; }
 
 0{D}+{INTSPEC}? { 
   yylval->intvalue = std::atoi(yytext); 
@@ -81,6 +85,8 @@ LINECOMMENT ^{SPACE}*"//"[^\r\n]*{NL}
 "::" { 
   return CppBisonParser::token::QUALIFIER;
 }
+
+":"  { return ':'; }
 
 <FUNCTION>[^\{\}\r\n/]+ {
 }

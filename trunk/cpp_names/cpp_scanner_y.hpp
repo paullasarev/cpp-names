@@ -45,20 +45,102 @@
 #include <string>
 #include <list>
 #include <algorithm>
+#include <stack>
 
 namespace CppNames 
 {
   class CppFlexScanner;
 
+  struct ParserStackType
+  {
+    std::string ident;
+    NameInfo name;
+    int intvalue;
+    std::list<NameInfo> list;
+    bool flag;
+  };
 
-struct ParserStackType
-{
-	std::string ident;
-  NameInfo name;
-  int intvalue;
-	std::list<NameInfo> list;
-  bool flag;
-};
+  struct ScopeElement
+  {
+    NameInfo::NameAccess Access;
+
+    ScopeElement(): Access(NameInfo::ACCESS_PUBLIC)
+    {
+    }
+  };
+
+  class ScopeStack
+  {
+  private:
+    std::stack<ScopeElement> stack;
+
+    void Push(ScopeElement element)
+    {
+      stack.push(element);
+    }
+
+  public:
+    ScopeElement &Top()
+    {
+      return stack.top();
+    }
+
+    bool Empty()
+    {
+      return stack.empty();
+    }
+
+    void PushScope(const NameInfo& info)
+    {
+      ScopeElement scope;
+
+      if (info.Type == NameInfo::NAME_CLASS)
+      {
+        scope.Access = NameInfo::ACCESS_PRIVATE;
+      }
+
+      Push(scope);
+    }
+  
+    void PopScope()
+    {
+      stack.pop();
+    }
+
+    NameInfo::NameAccess ScopeAccess()
+    {
+      if (stack.empty())
+      {
+        return NameInfo::ACCESS_PUBLIC;
+      }
+
+      ScopeElement& top = Top();
+      return top.Access;
+    }
+
+    void SetAccess(NameInfo::NameAccess access)
+    {
+      if (stack.empty())
+      {
+
+        return;
+      }
+
+      ScopeElement& top = Top();
+      top.Access = access;
+    }
+  };
+
+  struct CppBisonParserContext
+  {
+    NameInfoSet& names;
+    ScopeStack scopes;
+
+    CppBisonParserContext(NameInfoSet& p_names)
+      : names(p_names)
+    {
+    }
+  };
 
 }
 
@@ -68,7 +150,7 @@ struct ParserStackType
 
 
 /* Line 34 of lalr1.cc  */
-#line 72 "cpp_scanner_y.hpp"
+#line 154 "cpp_scanner_y.hpp"
 
 
 #include <string>
@@ -81,7 +163,7 @@ struct ParserStackType
 namespace CppNames {
 
 /* Line 34 of lalr1.cc  */
-#line 85 "cpp_scanner_y.hpp"
+#line 167 "cpp_scanner_y.hpp"
   class position;
   class location;
 
@@ -90,7 +172,7 @@ namespace CppNames {
 } // CppNames
 
 /* Line 34 of lalr1.cc  */
-#line 94 "cpp_scanner_y.hpp"
+#line 176 "cpp_scanner_y.hpp"
 
 #include "location.hh"
 
@@ -137,7 +219,7 @@ do {							\
 namespace CppNames {
 
 /* Line 34 of lalr1.cc  */
-#line 141 "cpp_scanner_y.hpp"
+#line 223 "cpp_scanner_y.hpp"
 
   /// A Bison parser.
   class CppBisonParser
@@ -162,10 +244,14 @@ namespace CppNames {
      CLASS = 261,
      STRUCT = 262,
      ENUM = 263,
-     CONST = 264,
-     IDENT = 265,
-     FUNCTION_BODY = 266,
-     INTVALUE = 267
+     UNION = 264,
+     PRIVATE = 265,
+     PUBLIC = 266,
+     PROTECTED = 267,
+     CONST = 268,
+     IDENT = 269,
+     FUNCTION_BODY = 270,
+     INTVALUE = 271
    };
 
     };
@@ -173,7 +259,7 @@ namespace CppNames {
     typedef token::yytokentype token_type;
 
     /// Build a parser object.
-    CppBisonParser (CppNames::CppFlexScanner &scanner_yyarg, CppNames::NameInfoSet& names_yyarg);
+    CppBisonParser (CppNames::CppFlexScanner &scanner_yyarg, CppNames::CppBisonParserContext &context_yyarg);
     virtual ~CppBisonParser ();
 
     /// Parse.
@@ -290,7 +376,7 @@ namespace CppNames {
     /// For each rule, the index of the first RHS symbol in \a yyrhs_.
     static const unsigned char yyprhs_[];
     /// For each rule, its source line number.
-    static const unsigned char yyrline_[];
+    static const unsigned short int yyrline_[];
     /// For each scanner token number, its symbol number.
     static const unsigned short int yytoken_number_[];
     /// Report on the debug stream that the rule \a r is going to be reduced.
@@ -334,7 +420,7 @@ namespace CppNames {
 
     /* User arguments.  */
     CppNames::CppFlexScanner &scanner;
-    CppNames::NameInfoSet& names;
+    CppNames::CppBisonParserContext &context;
   };
 
 /* Line 34 of lalr1.cc  */
@@ -342,7 +428,7 @@ namespace CppNames {
 } // CppNames
 
 /* Line 34 of lalr1.cc  */
-#line 346 "cpp_scanner_y.hpp"
+#line 432 "cpp_scanner_y.hpp"
 
 
 

@@ -19,28 +19,35 @@ namespace CppNames
       NAME_CLASS,
       NAME_STRUCT,
       NAME_ENUM,
+      NAME_UNION,
     } Type;
     bool Qualified;
     bool IsConst;
+    enum NameAccess
+    {
+      ACCESS_PUBLIC,
+      ACCESS_PRIVATE,
+      ACCESS_PROTECTED,
+    } Access;
 
-    NameInfo(): Type(NAME_SYMBOL), Qualified(false)
+    NameInfo(): Type(NAME_SYMBOL), Qualified(false), Access(ACCESS_PUBLIC)
     {
     }
 
     NameInfo(const std::string pName)
-      : Name(pName), Type(NAME_SYMBOL), Qualified(false)
+      : Name(pName), Type(NAME_SYMBOL), Qualified(false), Access(ACCESS_PUBLIC)
     {
     }
 
     NameInfo(const std::string pName, NameType type)
-      : Name(pName), Type(type), Qualified(false)
+      : Name(pName), Type(type), Qualified(false), Access(ACCESS_PUBLIC)
     {
     }
 
-    NameInfo(const NameInfo& info)
-      : Name(info.Name), Type(info.Type), Qualified(info.Qualified), IsConst(info.IsConst)
-    {
-    }
+    //NameInfo(const NameInfo& info)
+    //  : Name(info.Name), Type(info.Type), Qualified(info.Qualified), IsConst(info.IsConst)
+    //{
+    //}
 
     bool operator<(const NameInfo& other) const
     {
