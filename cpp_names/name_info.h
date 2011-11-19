@@ -32,6 +32,7 @@ namespace CppNames
     bool IsVirtual;
     bool IsAbstract;
     bool IsFriend;
+    bool IsTemplate;
 
     enum NameAccess
     {
@@ -43,19 +44,19 @@ namespace CppNames
     std::list<NameInfo> Parents;
 
     NameInfo(): Type(NAME_SYMBOL), Qualified(false), Access(ACCESS_PUBLIC)
-      , IsConst(false), IsVirtual(false), IsAbstract(false), IsFriend(false)
+      , IsConst(false), IsVirtual(false), IsAbstract(false), IsFriend(false), IsTemplate(false)
     {
     }
 
     NameInfo(const std::string pName)
       : Name(pName), Type(NAME_SYMBOL), Qualified(false), Access(ACCESS_PUBLIC)
-      , IsConst(false), IsVirtual(false), IsAbstract(false), IsFriend(false)
+      , IsConst(false), IsVirtual(false), IsAbstract(false), IsFriend(false), IsTemplate(false)
     {
     }
 
     NameInfo(const std::string pName, NameType type)
       : Name(pName), Type(type), Qualified(false), Access(ACCESS_PUBLIC)
-      , IsConst(false), IsVirtual(false), IsAbstract(false), IsFriend(false)
+      , IsConst(false), IsVirtual(false), IsAbstract(false), IsFriend(false), IsTemplate(false)
     {
     }
 

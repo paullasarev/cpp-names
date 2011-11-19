@@ -925,6 +925,63 @@ namespace CppNames
         EQUAL(std::string("int"), info.Alias);
       }
       
+      TESTCASE(Scan, FunctionTemplate)
+      {
+        std::stringstream content(
+          "template <class T1, class T2>\n"
+          "T1 First(T2 t)\n"
+          "{\n"
+          "  return T1.T2;\n"
+          "}\n"
+          );
+        NameInfoSet names;
+        CppScanner scanner;
+        CHECK(scanner.Scan(content, names));
+
+        NameInfo info;
+        CHECK(FindNameInfo(names, "First", info));
+        EQUAL(NameInfo::NAME_FUNCTION, info.Type);
+        EQUAL(true, info.IsTemplate);
+      }
+      
+      TESTCASE(Scan, ClassTemplate)
+      {
+        std::stringstream content(
+          "template <class T1, typename T2, int i>\n"
+          "class First\n"
+          "{\n"
+          "  T1 Function(T2 t);\n"
+          "};\n"
+          );
+        NameInfoSet names;
+        CppScanner scanner;
+        CHECK(scanner.Scan(content, names));
+
+        NameInfo info;
+        CHECK(FindNameInfo(names, "First", info));
+        EQUAL(NameInfo::NAME_CLASS, info.Type);
+        EQUAL(true, info.IsTemplate);
+      }
+
+      TESTCASE(Scan, ClassTemplateDefault)
+      {
+        std::stringstream content(
+          "template <class T1 = int, class T2 = First::Second&>\n"
+          "class First\n"
+          "{\n"
+          "  T1 Function(T2 t);\n"
+          "};\n"
+          );
+        NameInfoSet names;
+        CppScanner scanner;
+        CHECK(scanner.Scan(content, names));
+
+        NameInfo info;
+        CHECK(FindNameInfo(names, "First", info));
+        EQUAL(NameInfo::NAME_CLASS, info.Type);
+        EQUAL(true, info.IsTemplate);
+      }
+      
     }
   }
 }

@@ -167,14 +167,14 @@ struct AddNamespace
 }
 
 %token NAMESPACE '{' '}' QUALIFIER UNQUALIFIER CLASS STRUCT ENUM UNION PRIVATE PUBLIC PROTECTED
-%token VIRTUAL CATCH THREEDOT FRIEND TYPEDEF
+%token VIRTUAL CATCH THREEDOT FRIEND TYPEDEF TEMPLATE TYPENAME
 %left CONST '*' '&'
-%token '(' ')' ';' ',' '=' ':'
+%token '(' ')' ';' ',' '=' ':' '<' '>'
 %token<ident> IDENT FUNCTION_BODY 
 %token<intvalue> INTVALUE
 %type<list> program declaration_list namespace_declaration parameter_list nonempty_parameter_list
-%type<list> class_body class_definition 
-%type<name> qualified_name type parameter class_name enum_name union_name
+%type<list> class_body class_definition template_parameter_list nonempty_template_parameter_list
+%type<name> qualified_name type parameter class_name enum_name union_name template_parameter
 %type<name> forward_declaration function_declaration function_definition name_declaration typedef_declaration
 %type<list> class_inheritance inheritance_list catchlist
 %type<name> inheritance_name
@@ -241,6 +241,23 @@ class_definition:
 		  $$.push_back($1);
       context.scopes.PopScope();
     }
+  | TEMPLATE '<' template_parameter_list '>' 
+    class_name 
+    {
+      context.scopes.PushScope($5);
+    }
+    class_inheritance '{' 
+    {
+      $5.Parents = $7;
+      $5.IsTemplate = true;
+    } 
+    class_body '}' ';' 
+    {
+		  $$ = $10;
+		  for_each($$.begin(), $$.end(), AddNamespace($5.Name));
+		  $$.push_back($5);
+      context.scopes.PopScope();
+    }
   | enum_name '{' 
     {
       begin_function_body(scanner);
@@ -258,6 +275,7 @@ class_definition:
  		  $$.push_back($1);
     }
   ;
+
 
 class_inheritance:
     {
@@ -383,6 +401,18 @@ function_definition:
     $$.IsConst = $7;
     $$.IsVirtual = $1;
   }
+  | TEMPLATE '<' template_parameter_list '>' 
+  type qualified_name '(' parameter_list ')' constqualifier '{' 
+  {
+    begin_function_body(scanner);
+  }  
+  FUNCTION_BODY catchlist
+  {
+    $$ = $6;
+    $$.Type = NameInfo::NAME_FUNCTION;
+    $$.IsConst = $10;
+    $$.IsTemplate = true;
+  }
   ;
 
 catchlist: {}
@@ -420,6 +450,43 @@ virtualqualifier:
   {
     $$ = true;
   }
+
+template_parameter_list: {}
+  | nonempty_template_parameter_list {$$ = $1;}
+
+nonempty_template_parameter_list:
+  template_parameter {
+    $$.push_back($1);
+  }
+  | nonempty_template_parameter_list ',' template_parameter {
+    $$ = $1;
+    $$.push_back($3);
+  }
+  ;
+
+template_parameter: 
+  type IDENT 
+  {
+      $$ = $2;
+  }
+  | CLASS IDENT 
+  {
+      $$ = $2;
+  }
+  | CLASS IDENT '=' type
+  {
+      $$ = $2;
+  }
+  | TYPENAME IDENT 
+  {
+      $$ = $2;
+  }
+  | TYPENAME IDENT '=' type
+  {
+      $$ = $2;
+  }
+  ;
+
 
 parameter_list: {}
   | nonempty_parameter_list {$$ = $1;}

@@ -66,6 +66,8 @@ LINECOMMENT ^{SPACE}*"//"[^\r\n]*{NL}
 "catch"  { return CppBisonParser::token::CATCH; }
 "friend"  { return CppBisonParser::token::FRIEND; }
 "typedef"  { return CppBisonParser::token::TYPEDEF; }
+"template"  { return CppBisonParser::token::TEMPLATE; }
+"typename"  { return CppBisonParser::token::TYPENAME; }
 
 {D}+{INTSPEC}? {
   yylval->intvalue = std::atoi(yytext); 
@@ -76,6 +78,8 @@ LINECOMMENT ^{SPACE}*"//"[^\r\n]*{NL}
 \}  {	return '}'; }
 \(  { return '('; }
 \)  { return ')';	}
+\<  { return '<'; }
+\>  {	return '>'; }
 \;  { return ';'; }
 \,  { return ','; }
 \*  { return '*'; }
