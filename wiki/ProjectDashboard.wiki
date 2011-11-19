@@ -90,6 +90,9 @@ Refactoring:
 Infrastructure:
  * Add version numbering
 
+!CommandLine:
+ * Version
+
 !CppParser:
  * !ClassInheritance
  * !VirtualClassMethod
