@@ -83,8 +83,9 @@ Refactoring:
 
 
 !CppParser:
- * !PrivatePublicProtected
  * !UnionDeclaration
+ * !PrivatePublicProtected
+ * !TypedefDeclaration
  * !TemplateDeclaration
  * !SpecializedTemplate
  * !FuctionLevelException
