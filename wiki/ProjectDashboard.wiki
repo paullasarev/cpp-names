@@ -86,9 +86,10 @@ Cpp parser :
  * !VirtualClassMethod
  * !ClassVirtualInheritance
  * !AbstractClassMethod
+ * !FuctionLevelException
  
 
-Passed unit tests/Total unit test: 64/64
+Passed unit tests/Total unit test: 65/65
 
 
 =Planned  features=
@@ -104,7 +105,6 @@ Infrastructure:
  * Version
 
 !CppParser:
- * !FuctionLevelException
  * !FriendDeclaration
  * !TypedefDeclaration
  * !TemplateDeclaration
