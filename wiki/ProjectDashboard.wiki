@@ -111,8 +111,6 @@ Infrastructure:
  * Version
 
 !CppParser:
- * !TemplateDeclaration
- * !SpecializedTemplate
  * !PreprocessorDefine
  * !PreprocessorIfdef
  * !PreprocessorIfndef
