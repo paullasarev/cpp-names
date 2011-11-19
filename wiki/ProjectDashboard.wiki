@@ -86,6 +86,10 @@ Cpp parser :
  * !VirtualClassMethod
  * !ClassVirtualInheritance
  
+
+Passed unit tests/Total unit test: 63/63
+
+
 =Planned  features=
 
 Refactoring:
