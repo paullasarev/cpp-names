@@ -64,7 +64,7 @@ LINECOMMENT ^{SPACE}*"//"[^\r\n]*{NL}
 "protected"  { return CppBisonParser::token::PROTECTED; }
 "virtual"  { return CppBisonParser::token::VIRTUAL; }
 
-0{D}+{INTSPEC}? { 
+{D}+{INTSPEC}? {
   yylval->intvalue = std::atoi(yytext); 
   return CppBisonParser::token::INTVALUE; 
 }

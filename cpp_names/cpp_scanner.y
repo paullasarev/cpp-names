@@ -178,7 +178,7 @@ struct AddNamespace
 %type<name> forward_declaration function_declaration function_definition name_declaration
 %type<list> class_inheritance inheritance_list
 %type<name> inheritance_name
-%type<flag> constqualifier virtualqualifier
+%type<flag> constqualifier virtualqualifier abstractqualifier
 %type<access> access_qualifier
 
 %%
@@ -339,12 +339,13 @@ forward_declaration:
   ;
 
 function_declaration:
-  virtualqualifier type qualified_name '(' parameter_list ')' constqualifier ';' 
+  virtualqualifier type qualified_name '(' parameter_list ')' constqualifier abstractqualifier';' 
   {
     $$ = $3;
     $$.Type = NameInfo::NAME_FUNCTION;
     $$.IsConst = $7;
     $$.IsVirtual = $1;
+    $$.IsAbstract = $8;
   }
   ;
 
@@ -362,6 +363,19 @@ function_definition:
   }
   ;
 
+abstractqualifier:
+  {
+    $$ = false;
+  }
+  | '=' INTVALUE
+  {
+    $$ = true;
+    if ($2 != 0)
+    {
+      error(yylloc, "invalid INT value");
+      YYERROR;
+    }
+  }
 virtualqualifier:
   {
     $$ = false;
