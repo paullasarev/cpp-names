@@ -90,9 +90,12 @@ Cpp parser :
  * !FriendClassDeclaration
  * !FriendFunctionDeclaration
  * !TypedefDeclaration
+ * !FunctionTemplate
+ * !ClassTemplate
+ * !ClassTemplateDefault
 
 
-*Passed unit tests/Total unit test: 68/68*
+*Passed unit tests/Total unit test: 71/71*
 
 
 =Planned  features=
