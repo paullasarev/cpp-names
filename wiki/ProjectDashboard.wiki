@@ -82,6 +82,8 @@ Refactoring:
  * switch build system to [http://en.wikipedia.org/wiki/Cmake cmake], test in [http://en.wikipedia.org/wiki/Cygwin cygwin], [http://en.wikipedia.org/wiki/Mingw mingw/msys] and [http://en.wikipedia.org/wiki/Linux linux] environment
  * switch CPP parser design from recogintion-and-action to syntax-tree-and-visitors 
 
+Infrastructure:
+ * Add version numbering
 
 !CppParser:
  * !PrivatePublicProtected
