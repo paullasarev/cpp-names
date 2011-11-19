@@ -790,7 +790,7 @@ namespace CppNames
 
       }
 
-      TESTCASE(Scan, VirtualMethod)
+      TESTCASE(Scan, VirtualClassMethod)
       {
         std::stringstream content(
           "class First{\n"
@@ -832,6 +832,31 @@ namespace CppNames
         EQUAL(NameInfo::NAME_CLASS, parent.Type);
         EQUAL(NameInfo::ACCESS_PUBLIC, parent.Access);
         CHECK(true == parent.IsVirtual);
+      }
+
+      TESTCASE(Scan, AbstractClassMethod)
+      {
+        std::stringstream content(
+          "class Second\n"
+          "{\n"
+          "  virtual int Function(double name) = 0;\n"
+          "  int NonVirtualFunction(double name);\n"
+          "};\n"
+          );
+        NameInfoSet names;
+        CppScanner scanner;
+        CHECK(scanner.Scan(content, names));
+
+        NameInfo info;
+        CHECK(FindNameInfo(names, "Second::Function", info));
+        EQUAL(NameInfo::NAME_FUNCTION, info.Type);
+        CHECK(true == info.IsAbstract);
+        CHECK(true == info.IsVirtual);
+
+        CHECK(FindNameInfo(names, "Second::NonVirtualFunction", info));
+        EQUAL(NameInfo::NAME_FUNCTION, info.Type);
+        CHECK(false == info.IsAbstract);
+        CHECK(false == info.IsVirtual);
       }
 
     }
