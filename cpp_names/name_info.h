@@ -21,7 +21,7 @@ namespace CppNames
       NAME_CLASS,
       NAME_STRUCT,
       NAME_ENUM,
-      NAME_UNION
+      NAME_UNION,
     } 
     Type;
 
@@ -29,6 +29,7 @@ namespace CppNames
     bool IsConst;
     bool IsVirtual;
     bool IsAbstract;
+    bool IsFriend;
 
     enum NameAccess
     {
@@ -40,19 +41,19 @@ namespace CppNames
     std::list<NameInfo> Parents;
 
     NameInfo(): Type(NAME_SYMBOL), Qualified(false), Access(ACCESS_PUBLIC)
-      , IsConst(false), IsVirtual(false), IsAbstract(false)
+      , IsConst(false), IsVirtual(false), IsAbstract(false), IsFriend(false)
     {
     }
 
     NameInfo(const std::string pName)
       : Name(pName), Type(NAME_SYMBOL), Qualified(false), Access(ACCESS_PUBLIC)
-      , IsConst(false), IsVirtual(false), IsAbstract(false)
+      , IsConst(false), IsVirtual(false), IsAbstract(false), IsFriend(false)
     {
     }
 
     NameInfo(const std::string pName, NameType type)
       : Name(pName), Type(type), Qualified(false), Access(ACCESS_PUBLIC)
-      , IsConst(false), IsVirtual(false), IsAbstract(false)
+      , IsConst(false), IsVirtual(false), IsAbstract(false), IsFriend(false)
     {
     }
 
