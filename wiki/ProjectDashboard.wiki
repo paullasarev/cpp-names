@@ -90,10 +90,10 @@ Infrastructure:
  * !ClassInheritance
  * !VirtualClassMethod
  * !AbstractClassMethod
+ * !FuctionLevelException
  * !TypedefDeclaration
  * !TemplateDeclaration
  * !SpecializedTemplate
- * !FuctionLevelException
  * !PreprocessorDefine
  * !PreprocessorIfdef
  * !PreprocessorIfndef
