@@ -83,6 +83,8 @@ Cpp parser :
  * !ClassPublicInheritance
  * !StructInheritance
  * !StructPrivateInheritance
+ * !VirtualClassMethod
+ * !ClassVirtualInheritance
  
 =Planned  features=
 
@@ -97,8 +99,6 @@ Infrastructure:
  * Version
 
 !CppParser:
- * !VirtualClassMethod
- * !ClassVirtualInheritance
  * !AbstractClassMethod
  * !FuctionLevelException
  * !FriendDeclaration
