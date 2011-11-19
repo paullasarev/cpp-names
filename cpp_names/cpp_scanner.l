@@ -63,6 +63,7 @@ LINECOMMENT ^{SPACE}*"//"[^\r\n]*{NL}
 "public"  { return CppBisonParser::token::PUBLIC; }
 "protected"  { return CppBisonParser::token::PROTECTED; }
 "virtual"  { return CppBisonParser::token::VIRTUAL; }
+"catch"  { return CppBisonParser::token::CATCH; }
 
 {D}+{INTSPEC}? {
   yylval->intvalue = std::atoi(yytext); 
@@ -88,6 +89,10 @@ LINECOMMENT ^{SPACE}*"//"[^\r\n]*{NL}
 }
 
 ":"  { return ':'; }
+
+"..." { 
+  return CppBisonParser::token::THREEDOT;
+}
 
 <FUNCTION>[^\{\}\r\n/]+ {
 }
