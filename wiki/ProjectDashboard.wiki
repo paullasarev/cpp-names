@@ -73,6 +73,7 @@ Cpp parser :
  * !InnerClassDeclaration
  * !ConstClassMethodDeclaration
  * !EnumDeclaration (body is not parsed and is recognized lexycally, as one token)
+ * !UnionDeclaration (body is not parsed and is recognized lexycally, as one token)
 
  
 =Planned  features=
@@ -83,7 +84,6 @@ Refactoring:
 
 
 !CppParser:
- * !UnionDeclaration
  * !PrivatePublicProtected
  * !TypedefDeclaration
  * !TemplateDeclaration
