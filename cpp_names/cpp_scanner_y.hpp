@@ -56,8 +56,10 @@ namespace CppNames
     std::string ident;
     NameInfo name;
     int intvalue;
-    std::list<NameInfo> list;
+    NameInfoList list;
     bool flag;
+    NameInfo::NameAccess access;
+    std::vector<std::string> ident_list;
   };
 
   struct ScopeElement
@@ -150,7 +152,7 @@ namespace CppNames
 
 
 /* Line 34 of lalr1.cc  */
-#line 154 "cpp_scanner_y.hpp"
+#line 156 "cpp_scanner_y.hpp"
 
 
 #include <string>
@@ -163,7 +165,7 @@ namespace CppNames
 namespace CppNames {
 
 /* Line 34 of lalr1.cc  */
-#line 167 "cpp_scanner_y.hpp"
+#line 169 "cpp_scanner_y.hpp"
   class position;
   class location;
 
@@ -172,7 +174,7 @@ namespace CppNames {
 } // CppNames
 
 /* Line 34 of lalr1.cc  */
-#line 176 "cpp_scanner_y.hpp"
+#line 178 "cpp_scanner_y.hpp"
 
 #include "location.hh"
 
@@ -219,7 +221,7 @@ do {							\
 namespace CppNames {
 
 /* Line 34 of lalr1.cc  */
-#line 223 "cpp_scanner_y.hpp"
+#line 225 "cpp_scanner_y.hpp"
 
   /// A Bison parser.
   class CppBisonParser
@@ -348,7 +350,7 @@ namespace CppNames {
     static const unsigned char yytable_[];
     static const signed char yytable_ninf_;
 
-    static const signed char yycheck_[];
+    static const unsigned char yycheck_[];
 
     /// For a state, its accessing symbol.
     static const unsigned char yystos_[];
@@ -428,7 +430,7 @@ namespace CppNames {
 } // CppNames
 
 /* Line 34 of lalr1.cc  */
-#line 432 "cpp_scanner_y.hpp"
+#line 434 "cpp_scanner_y.hpp"
 
 
 

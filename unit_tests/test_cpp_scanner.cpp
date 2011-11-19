@@ -4,6 +4,7 @@
 
 #include "yaffut.h"
 
+#include <algorithm>
 #include <strstream>
 
 namespace CppNames
@@ -29,13 +30,43 @@ namespace CppNames
           yaffut::check(FindNameInfo(names, name, info), at, expr);
           yaffut::equal(isConst, info.IsConst, at, expr);
         }
+
+        void CheckAccess(NameInfoSet& names, const std::string& name, NameInfo::NameAccess access, const char *at, const char *expr)
+        {
+          NameInfo info;
+          yaffut::check(FindNameInfo(names, name, info), at, expr);
+          yaffut::equal(access, info.Access, at, expr);
+        }
       };
 
-      #define CHECK_NAME(names, name, type) \
-        CheckName(names, name, type, __YAFFUT_AT__, "CHECK_NAME(" #name ", " #type ") failed ")
-     
-      #define CHECK_CONST(names, name, isConst) \
-        CheckConst(names, name, isConst, __YAFFUT_AT__, "CHECK_CONST(" #name ", " #isConst ") failed ")
+#define CHECK_NAME(names, name, type) \
+  CheckName(names, name, type, __YAFFUT_AT__, "CHECK_NAME(" #name ", " #type ") failed ")
+
+#define CHECK_CONST(names, name, isConst) \
+  CheckConst(names, name, isConst, __YAFFUT_AT__, "CHECK_CONST(" #name ", " #isConst ") failed ")
+
+#define CHECK_ACCESS(names, name, access) \
+  CheckAccess(names, name, access, __YAFFUT_AT__, "CHECK_CONST(" #name ", " #access ") failed ")
+
+      struct CppBisonParserWrapper
+      {
+        CppBisonParserWrapper(std::istream& arg_yyin)
+          : scanner(&arg_yyin)
+          , context(names)
+          , parser(scanner, context)
+        {
+        }
+
+        int parse()
+        {
+          return parser.parse();
+        }
+
+        CppFlexScanner scanner;
+        NameInfoSet names;
+        CppBisonParserContext context;
+        CppBisonParser parser;
+      };
 
       TESTCASE(Scan, EmptyContent)
       {
@@ -58,15 +89,16 @@ namespace CppNames
         CppScanner scanner;
         CHECK(scanner.Scan(content, names));
         CHECK(names.size() == 1);
-        
+
         CHECK_NAME(names, "First", NameInfo::NAME_NAMESPACE);
       }
 
       TESTCASE(Scan, BisonParser)
       {
-        NameInfoSet names;
         CppFlexScanner scanner;
-        CppBisonParser parser(scanner, names);
+        NameInfoSet names;
+        CppBisonParserContext context(names);
+        CppBisonParser parser(scanner, context);
       }
 
       TESTCASE(Scan, BisonEmpty)
@@ -74,26 +106,24 @@ namespace CppNames
         std::stringstream content("");
         NameInfoSet names;
         CppFlexScanner scanner(&content);
-        CppBisonParser parser(scanner, names);
+        CppBisonParserWrapper parser(content);
         EQUAL(0, parser.parse());
         EQUAL(size_t(0), names.size());
-     }
+      }
 
       TESTCASE(Scan, BisonNamespace)
       {
-        NameInfoSet names;
         std::stringstream content(
           "\n"
           "namespace First\n"
           "{\n"
           "}\n"
           );
-        CppFlexScanner scanner(&content);
-        CppBisonParser parser(scanner, names);
+        CppBisonParserWrapper parser(content);
         EQUAL(0, parser.parse());
-        CHECK(names.size() == 1);
+        CHECK(parser.names.size() == 1);
 
-        CHECK_NAME(names, "First", NameInfo::NAME_NAMESPACE);
+        CHECK_NAME(parser.names, "First", NameInfo::NAME_NAMESPACE);
       }
 
       TESTCASE(Scan, NestedNamespace)
@@ -111,7 +141,7 @@ namespace CppNames
         CppScanner scanner;
         CHECK(scanner.Scan(content, names));
         CHECK(names.size() == 2);
-        
+
         CHECK_NAME(names, "First", NameInfo::NAME_NAMESPACE);
         CHECK_NAME(names, "First::Second", NameInfo::NAME_NAMESPACE);
       }
@@ -128,7 +158,7 @@ namespace CppNames
         CppScanner scanner;
         CHECK(scanner.Scan(content, names));
         CHECK(names.size() == 1);
-        
+
         CHECK_NAME(names, "anonymous", NameInfo::NAME_NAMESPACE);
       }
 
@@ -142,7 +172,7 @@ namespace CppNames
         CppScanner scanner;
         CHECK(scanner.Scan(content, names));
         CHECK(names.size() == 1);
-        
+
         CHECK_NAME(names, "Function", NameInfo::NAME_FUNCTION);
       }
 
@@ -159,7 +189,7 @@ namespace CppNames
         CppScanner scanner;
         CHECK(scanner.Scan(content, names));
         CHECK(names.size() == 2);
-        
+
         CHECK_NAME(names, "First::Function", NameInfo::NAME_FUNCTION);
       }
 
@@ -172,7 +202,7 @@ namespace CppNames
         NameInfoSet names;
         CppScanner scanner;
         CHECK(scanner.Scan(content, names));
-        
+
         CHECK_NAME(names, "Second::Function", NameInfo::NAME_FUNCTION);
       }
 
@@ -185,7 +215,7 @@ namespace CppNames
         NameInfoSet names;
         CppScanner scanner;
         CHECK(scanner.Scan(content, names));
-        
+
         CHECK_NAME(names, "Function", NameInfo::NAME_FUNCTION);
       }
 
@@ -201,7 +231,7 @@ namespace CppNames
         NameInfoSet names;
         CppScanner scanner;
         CHECK(scanner.Scan(content, names));
-        
+
         CHECK_NAME(names, "Function", NameInfo::NAME_FUNCTION);
       }
 
@@ -215,7 +245,7 @@ namespace CppNames
         CppScanner scanner;
         CHECK(scanner.Scan(content, names));
         CHECK(names.size() == 1);
-        
+
         CHECK_NAME(names, "Function", NameInfo::NAME_FUNCTION);
       }
 
@@ -229,7 +259,7 @@ namespace CppNames
         CppScanner scanner;
         CHECK(scanner.Scan(content, names));
         CHECK(names.size() == 1);
-        
+
         CHECK_NAME(names, "Function", NameInfo::NAME_FUNCTION);
       }
 
@@ -242,7 +272,7 @@ namespace CppNames
         CppScanner scanner;
         CHECK(scanner.Scan(content, names));
         CHECK(names.size() == 1);
-        
+
         CHECK_NAME(names, "Function", NameInfo::NAME_FUNCTION);
       }
 
@@ -255,7 +285,7 @@ namespace CppNames
         CppScanner scanner;
         CHECK(scanner.Scan(content, names));
         CHECK(names.size() == 1);
-        
+
         CHECK_NAME(names, "Function", NameInfo::NAME_FUNCTION);
       }
 
@@ -268,7 +298,7 @@ namespace CppNames
         CppScanner scanner;
         CHECK(scanner.Scan(content, names));
         CHECK(names.size() == 1);
-        
+
         CHECK_NAME(names, "Function", NameInfo::NAME_FUNCTION);
       }
 
@@ -281,11 +311,11 @@ namespace CppNames
         CppScanner scanner;
         CHECK(scanner.Scan(content, names));
         CHECK(names.size() == 1);
-        
+
         CHECK_NAME(names, "Function", NameInfo::NAME_FUNCTION);
       }
 
-     TESTCASE(Scan, FunctionDefinition)
+      TESTCASE(Scan, FunctionDefinition)
       {
         std::stringstream content(
           ""
@@ -296,11 +326,11 @@ namespace CppNames
         NameInfoSet names;
         CppScanner scanner;
         CHECK(scanner.Scan(content, names));
-        
+
         CHECK_NAME(names, "Function", NameInfo::NAME_FUNCTION);
       }
 
-     TESTCASE(Scan, FunctionBrackets)
+      TESTCASE(Scan, FunctionBrackets)
       {
         std::stringstream content(
           ""
@@ -314,7 +344,7 @@ namespace CppNames
         NameInfoSet names;
         CppScanner scanner;
         CHECK(scanner.Scan(content, names));
-        
+
         CHECK_NAME(names, "Function", NameInfo::NAME_FUNCTION);
       }
 
@@ -329,7 +359,7 @@ namespace CppNames
         CHECK(names.size() == 0);
       }
 
-     TESTCASE(Scan, LineCommentInFunction)
+      TESTCASE(Scan, LineCommentInFunction)
       {
         std::stringstream content(
           ""
@@ -343,7 +373,7 @@ namespace CppNames
         NameInfoSet names;
         CppScanner scanner;
         CHECK(scanner.Scan(content, names));
-        
+
         CHECK_NAME(names, "Function", NameInfo::NAME_FUNCTION);
       }
 
@@ -360,7 +390,7 @@ namespace CppNames
         CHECK(names.size() == 0);
       }
 
-     TESTCASE(Scan, StreamCommentInFunction)
+      TESTCASE(Scan, StreamCommentInFunction)
       {
         std::stringstream content(
           ""
@@ -374,7 +404,7 @@ namespace CppNames
         NameInfoSet names;
         CppScanner scanner;
         CHECK(scanner.Scan(content, names));
-        
+
         CHECK_NAME(names, "Function", NameInfo::NAME_FUNCTION);
       }
 
@@ -386,7 +416,7 @@ namespace CppNames
         NameInfoSet names;
         CppScanner scanner;
         CHECK(scanner.Scan(content, names));
-        
+
         CHECK_NAME(names, "First", NameInfo::NAME_CLASS);
       }
 
@@ -398,7 +428,7 @@ namespace CppNames
         NameInfoSet names;
         CppScanner scanner;
         CHECK(scanner.Scan(content, names));
-        
+
         CHECK_NAME(names, "First", NameInfo::NAME_STRUCT);
       }
 
@@ -413,7 +443,7 @@ namespace CppNames
         NameInfoSet names;
         CppScanner scanner;
         CHECK(scanner.Scan(content, names));
-        
+
         CHECK_NAME(names, "Main", NameInfo::NAME_NAMESPACE);
         CHECK_NAME(names, "Main::First", NameInfo::NAME_CLASS);
         CHECK_NAME(names, "Main::Second", NameInfo::NAME_STRUCT);
@@ -428,7 +458,7 @@ namespace CppNames
         NameInfoSet names;
         CppScanner scanner;
         CHECK(scanner.Scan(content, names));
-        
+
         CHECK_NAME(names, "First", NameInfo::NAME_CLASS);
       }
 
@@ -442,7 +472,7 @@ namespace CppNames
         NameInfoSet names;
         CppScanner scanner;
         CHECK(scanner.Scan(content, names));
-        
+
         CHECK_NAME(names, "First", NameInfo::NAME_CLASS);
         CHECK_NAME(names, "First::Function", NameInfo::NAME_FUNCTION);
       }
@@ -459,7 +489,7 @@ namespace CppNames
         NameInfoSet names;
         CppScanner scanner;
         CHECK(scanner.Scan(content, names));
-        
+
         CHECK_NAME(names, "First", NameInfo::NAME_CLASS);
         CHECK_NAME(names, "First::Function", NameInfo::NAME_FUNCTION);
       }
@@ -479,7 +509,7 @@ namespace CppNames
         NameInfoSet names;
         CppScanner scanner;
         CHECK(scanner.Scan(content, names));
-        
+
         CHECK_NAME(names, "First", NameInfo::NAME_CLASS);
         CHECK_NAME(names, "First::Second", NameInfo::NAME_STRUCT);
         CHECK_NAME(names, "First::Second::Function", NameInfo::NAME_FUNCTION);
@@ -498,7 +528,7 @@ namespace CppNames
         NameInfoSet names;
         CppScanner scanner;
         CHECK(scanner.Scan(content, names));
-        
+
         CHECK_NAME(names, "First", NameInfo::NAME_CLASS);
         CHECK_NAME(names, "First::Function", NameInfo::NAME_FUNCTION);
         CHECK_NAME(names, "First::Method", NameInfo::NAME_FUNCTION);
@@ -515,7 +545,7 @@ namespace CppNames
         NameInfoSet names;
         CppScanner scanner;
         CHECK(scanner.Scan(content, names));
-        
+
         CHECK_NAME(names, "State", NameInfo::NAME_ENUM);
       }
 
@@ -529,7 +559,7 @@ namespace CppNames
         NameInfoSet names;
         CppScanner scanner;
         CHECK(scanner.Scan(content, names));
-        
+
         CHECK_NAME(names, "State", NameInfo::NAME_ENUM);
       }
 
@@ -544,7 +574,7 @@ namespace CppNames
         NameInfoSet names;
         CppScanner scanner;
         CHECK(scanner.Scan(content, names));
-        
+
         CHECK_NAME(names, "State", NameInfo::NAME_ENUM);
       }
 
@@ -559,8 +589,204 @@ namespace CppNames
         NameInfoSet names;
         CppScanner scanner;
         CHECK(scanner.Scan(content, names));
-        
+
         CHECK_NAME(names, "State", NameInfo::NAME_ENUM);
+      }
+
+      union Pack
+      {
+        int count;
+        const char *name;
+      };
+
+      TESTCASE(Scan, UnionDeclaration)
+      {
+        std::stringstream content(
+          "union Pack\n"
+          "{\n"
+          "  int count;\n"
+          "  const char *name;\n"
+          "};\n"
+          );
+        NameInfoSet names;
+        CppScanner scanner;
+        CHECK(scanner.Scan(content, names));
+
+        CHECK_NAME(names, "Pack", NameInfo::NAME_UNION);
+      }
+
+      TESTCASE(Scan, DefaultClassAccess)
+      {
+        std::stringstream content(
+          "class First{\n"
+          "  int Function(double name);\n"
+          "};\n"
+          );
+        NameInfoSet names;
+        CppScanner scanner;
+        CHECK(scanner.Scan(content, names));
+
+        CHECK_ACCESS(names, "First::Function", NameInfo::ACCESS_PRIVATE);
+      }
+
+      TESTCASE(Scan, DefaultStructAccess)
+      {
+        std::stringstream content(
+          "struct First{\n"
+          "  int Function(double name);\n"
+          "};\n"
+          );
+        NameInfoSet names;
+        CppScanner scanner;
+        CHECK(scanner.Scan(content, names));
+
+        CHECK_ACCESS(names, "First::Function", NameInfo::ACCESS_PUBLIC);
+      }
+
+      TESTCASE(Scan, DefaultInnerStructAccess)
+      {
+        std::stringstream content(
+          "class First{\n"
+          "  int Function(double name);\n"
+          "  struct Second\n"
+          "  {\n"
+          "    int Function(double name);\n"
+          "  };\n"
+          "};\n"
+          );
+        NameInfoSet names;
+        CppScanner scanner;
+        CHECK(scanner.Scan(content, names));
+
+        CHECK_ACCESS(names, "First::Function", NameInfo::ACCESS_PRIVATE);
+        CHECK_ACCESS(names, "First::Second::Function", NameInfo::ACCESS_PUBLIC);
+      }
+
+      TESTCASE(Scan, PublicPrivateProtected)
+      {
+        std::stringstream content(
+          "class First{\n"
+          "  public:\n"
+          "  int PublicFunction(double name);\n"
+          "  private:\n"
+          "  int PrivateFunction(double name);\n"
+          "  protected:\n"
+          "  int ProtectedFunction(double name);\n"
+          "};\n"
+          );
+        NameInfoSet names;
+        CppScanner scanner;
+        CHECK(scanner.Scan(content, names));
+
+        CHECK_ACCESS(names, "First::PublicFunction", NameInfo::ACCESS_PUBLIC);
+        CHECK_ACCESS(names, "First::PrivateFunction", NameInfo::ACCESS_PRIVATE);
+        CHECK_ACCESS(names, "First::ProtectedFunction", NameInfo::ACCESS_PROTECTED);
+      }
+
+      TESTCASE(Scan, PublicPrivateProtectedWithSpaces)
+      {
+        std::stringstream content(
+          "class First{\n"
+          "  public :\n"
+          "  int PublicFunction(double name);\n"
+          "  private\n:\n"
+          "  int PrivateFunction(double name);\n"
+          "  protected\t:\n"
+          "  int ProtectedFunction(double name);\n"
+          "};\n"
+          );
+        NameInfoSet names;
+        CppScanner scanner;
+        CHECK(scanner.Scan(content, names));
+
+        CHECK_ACCESS(names, "First::PublicFunction", NameInfo::ACCESS_PUBLIC);
+        CHECK_ACCESS(names, "First::PrivateFunction", NameInfo::ACCESS_PRIVATE);
+        CHECK_ACCESS(names, "First::ProtectedFunction", NameInfo::ACCESS_PROTECTED);
+      }
+
+      TESTCASE(Scan, ClassInheritance)
+      {
+        std::stringstream content(
+          "class Second: First\n"
+          "{\n"
+          "};\n"
+          );
+        NameInfoSet names;
+        CppScanner scanner;
+        CHECK(scanner.Scan(content, names));
+
+        NameInfo info;
+        CHECK(FindNameInfo(names, "Second", info));
+        EQUAL(NameInfo::NAME_CLASS, info.Type);
+
+        NameInfo parent;
+        CHECK(FindNameInfo(info.Parents, "First", parent));
+        EQUAL(NameInfo::NAME_CLASS, parent.Type);
+        EQUAL(NameInfo::ACCESS_PRIVATE, parent.Access);
+      }
+
+      TESTCASE(Scan, ClassPublicInheritance)
+      {
+        std::stringstream content(
+          "class Second:public First\n"
+          "{\n"
+          "};\n"
+          );
+        NameInfoSet names;
+        CppScanner scanner;
+        CHECK(scanner.Scan(content, names));
+
+        NameInfo info;
+        CHECK(FindNameInfo(names, "Second", info));
+        EQUAL(NameInfo::NAME_CLASS, info.Type);
+
+        NameInfo parent;
+        CHECK(FindNameInfo(info.Parents, "First", parent));
+        EQUAL(NameInfo::NAME_CLASS, parent.Type);
+        EQUAL(NameInfo::ACCESS_PUBLIC, parent.Access);
+      }
+
+      TESTCASE(Scan, StructInheritance)
+      {
+        std::stringstream content(
+          "struct Second: First\n"
+          "{\n"
+          "};\n"
+          );
+        NameInfoSet names;
+        CppScanner scanner;
+        CHECK(scanner.Scan(content, names));
+
+        NameInfo info;
+        CHECK(FindNameInfo(names, "Second", info));
+        EQUAL(NameInfo::NAME_STRUCT, info.Type);
+
+        NameInfo parent;
+        CHECK(FindNameInfo(info.Parents, "First", parent));
+        EQUAL(NameInfo::NAME_CLASS, parent.Type);
+        EQUAL(NameInfo::ACCESS_PUBLIC, parent.Access);
+      }
+
+      TESTCASE(Scan, StructPrivateInheritance)
+      {
+        std::stringstream content(
+          "struct Second: private First\n"
+          "{\n"
+          "};\n"
+          );
+        NameInfoSet names;
+        CppScanner scanner;
+        CHECK(scanner.Scan(content, names));
+
+        NameInfo info;
+        CHECK(FindNameInfo(names, "Second", info));
+        EQUAL(NameInfo::NAME_STRUCT, info.Type);
+
+        NameInfo parent;
+        CHECK(FindNameInfo(info.Parents, "First", parent));
+        EQUAL(NameInfo::NAME_CLASS, parent.Type);
+        EQUAL(NameInfo::ACCESS_PRIVATE, parent.Access);
+
       }
 
     }

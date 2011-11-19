@@ -27,8 +27,10 @@ namespace CppNames
     std::string ident;
     NameInfo name;
     int intvalue;
-    std::list<NameInfo> list;
+    NameInfoList list;
     bool flag;
+    NameInfo::NameAccess access;
+    std::vector<std::string> ident_list;
   };
 
   struct ScopeElement
@@ -173,7 +175,10 @@ struct AddNamespace
 %type<list> class_body class_definition 
 %type<name> qualified_name type parameter class_name enum_name union_name
 %type<name> forward_declaration function_declaration function_definition name_declaration
+%type<list> class_inheritance inheritance_list
+%type<name> inheritance_name
 %type<flag> constqualifier
+%type<access> access_qualifier
 
 %%
 
@@ -216,26 +221,71 @@ name_declaration:
   | function_definition
 
 class_definition:
-  class_name '{' {
-    context.scopes.PushScope($1);
-  } class_body '}' ';' {
-		$$ = $4;
-		for_each($$.begin(), $$.end(), AddNamespace($1.Name));
-		$$.push_back($1);
-    context.scopes.PopScope();
-  }
-  | enum_name '{' {
-    begin_function_body(scanner);
-  }  
-  FUNCTION_BODY ';'  {
- 		$$.push_back($1);
-  }
-  | union_name '{' {
-    begin_function_body(scanner);
-  }  
-  FUNCTION_BODY ';'  {
- 		$$.push_back($1);
-  }
+    class_name 
+    {
+      context.scopes.PushScope($1);
+    }
+    class_inheritance '{' 
+    {
+      $1.Parents = $3;
+    } 
+    class_body '}' ';' 
+    {
+		  $$ = $6;
+		  for_each($$.begin(), $$.end(), AddNamespace($1.Name));
+		  $$.push_back($1);
+      context.scopes.PopScope();
+    }
+  | enum_name '{' 
+    {
+      begin_function_body(scanner);
+    }  
+    FUNCTION_BODY ';'  
+    {
+ 		  $$.push_back($1);
+    }
+  | union_name '{' 
+    {
+      begin_function_body(scanner);
+    }  
+    FUNCTION_BODY ';'  
+    {
+ 		  $$.push_back($1);
+    }
+  ;
+
+class_inheritance:
+    {
+    }
+  | ':' inheritance_list
+    {
+      $$ = $2;
+    }
+
+inheritance_list:
+    inheritance_name
+    {
+      $$.push_back($1);
+    }
+  | inheritance_list ',' inheritance_name
+    {
+      $$ = $1;
+      $$.push_back($3);
+    }
+
+inheritance_name:
+  qualified_name
+    {
+      $$ = $1;
+      $$.Access = context.scopes.ScopeAccess();
+      $$.Type = NameInfo::NAME_CLASS;
+    }
+  | access_qualifier qualified_name
+    {
+      $$ = $2;
+      $$.Access = $1;
+      $$.Type = NameInfo::NAME_CLASS;
+    }   
   ;
 
 class_name:
@@ -259,17 +309,9 @@ union_name:
   }
 
 class_body: {}
-  | class_body PUBLIC ':' {
+  | class_body access_qualifier ':' {
     $$ = $1;
-    context.scopes.SetAccess(NameInfo::ACCESS_PUBLIC);
-  }
-  | class_body PRIVATE ':' {
-    $$ = $1;
-    context.scopes.SetAccess(NameInfo::ACCESS_PRIVATE);
-  }
-  | class_body PROTECTED ':' {
-    $$ = $1;
-    context.scopes.SetAccess(NameInfo::ACCESS_PROTECTED);
+    context.scopes.SetAccess($2);
   }
   | class_body name_declaration {
     $2.Access = context.scopes.ScopeAccess();
@@ -281,6 +323,11 @@ class_body: {}
 		$$.insert($$.end(), $2.begin(), $2.end());
   }
   ;
+
+access_qualifier:
+  PUBLIC { $$ = NameInfo::ACCESS_PUBLIC; }
+  | PRIVATE { $$ = NameInfo::ACCESS_PRIVATE; }
+  | PROTECTED { $$ = NameInfo::ACCESS_PROTECTED; }
 
 forward_declaration:
   class_name ';' {

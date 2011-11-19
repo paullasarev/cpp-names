@@ -4,6 +4,8 @@
 #include <set>
 #include <string>
 #include <iostream>
+#include <vector>
+#include <list>
 
 namespace CppNames
 {
@@ -19,16 +21,21 @@ namespace CppNames
       NAME_CLASS,
       NAME_STRUCT,
       NAME_ENUM,
-      NAME_UNION,
-    } Type;
+      NAME_UNION
+    } 
+    Type;
+
     bool Qualified;
     bool IsConst;
+
     enum NameAccess
     {
       ACCESS_PUBLIC,
       ACCESS_PRIVATE,
-      ACCESS_PROTECTED,
+      ACCESS_PROTECTED
     } Access;
+    
+    std::list<NameInfo> Parents;
 
     NameInfo(): Type(NAME_SYMBOL), Qualified(false), Access(ACCESS_PUBLIC)
     {
@@ -44,20 +51,22 @@ namespace CppNames
     {
     }
 
-    //NameInfo(const NameInfo& info)
-    //  : Name(info.Name), Type(info.Type), Qualified(info.Qualified), IsConst(info.IsConst)
-    //{
-    //}
-
     bool operator<(const NameInfo& other) const
     {
        return Name < other.Name;
     }
+
+    bool operator==(const NameInfo& other) const
+    {
+       return Name == other.Name;
+    }
   };
 
   typedef std::set<NameInfo> NameInfoSet;
+  typedef std::list<NameInfo> NameInfoList;
 
   bool FindNameInfo(NameInfoSet& names, const std::string name, NameInfo &info);
+  bool FindNameInfo(NameInfoList& names, const std::string name, NameInfo &info);
 
   struct NameToCSV
   {
