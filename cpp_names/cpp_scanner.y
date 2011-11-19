@@ -5,9 +5,9 @@
 %defines
 %define namespace "CppNames"
 %define parser_class_name "CppBisonParser"
-%parse-param { CppNames::CppFlexScanner &scanner }
 %lex-param   { CppNames::CppFlexScanner &scanner }
-%parse-param { CppNames::NameInfoSet& names }
+%parse-param   { CppNames::CppFlexScanner &scanner }
+%parse-param { CppNames::CppBisonParserContext &context }
 
 %code requires 
 {
@@ -16,20 +16,102 @@
 #include <string>
 #include <list>
 #include <algorithm>
+#include <stack>
 
 namespace CppNames 
 {
   class CppFlexScanner;
 
+  struct ParserStackType
+  {
+    std::string ident;
+    NameInfo name;
+    int intvalue;
+    std::list<NameInfo> list;
+    bool flag;
+  };
 
-struct ParserStackType
-{
-	std::string ident;
-  NameInfo name;
-  int intvalue;
-	std::list<NameInfo> list;
-  bool flag;
-};
+  struct ScopeElement
+  {
+    NameInfo::NameAccess Access;
+
+    ScopeElement(): Access(NameInfo::ACCESS_PUBLIC)
+    {
+    }
+  };
+
+  class ScopeStack
+  {
+  private:
+    std::stack<ScopeElement> stack;
+
+    void Push(ScopeElement element)
+    {
+      stack.push(element);
+    }
+
+  public:
+    ScopeElement &Top()
+    {
+      return stack.top();
+    }
+
+    bool Empty()
+    {
+      return stack.empty();
+    }
+
+    void PushScope(const NameInfo& info)
+    {
+      ScopeElement scope;
+
+      if (info.Type == NameInfo::NAME_CLASS)
+      {
+        scope.Access = NameInfo::ACCESS_PRIVATE;
+      }
+
+      Push(scope);
+    }
+  
+    void PopScope()
+    {
+      stack.pop();
+    }
+
+    NameInfo::NameAccess ScopeAccess()
+    {
+      if (stack.empty())
+      {
+        return NameInfo::ACCESS_PUBLIC;
+      }
+
+      ScopeElement& top = Top();
+      return top.Access;
+    }
+
+    void SetAccess(NameInfo::NameAccess access)
+    {
+      if (stack.empty())
+      {
+
+        return;
+      }
+
+      ScopeElement& top = Top();
+      top.Access = access;
+    }
+  };
+
+  struct CppBisonParserContext
+  {
+    NameInfoSet& names;
+    ScopeStack scopes;
+
+    CppBisonParserContext(NameInfoSet& p_names)
+      : names(p_names)
+    {
+    }
+  };
 
 }
 
@@ -82,21 +164,21 @@ struct AddNamespace
 
 }
 
-%token NAMESPACE '{' '}' QUALIFIER UNQUALIFIER CLASS STRUCT ENUM
+%token NAMESPACE '{' '}' QUALIFIER UNQUALIFIER CLASS STRUCT ENUM UNION PRIVATE PUBLIC PROTECTED
 %left CONST '*' '&'
-%token '(' ')' ';' ',' '='
+%token '(' ')' ';' ',' '=' ':'
 %token<ident> IDENT FUNCTION_BODY 
 %token<intvalue> INTVALUE
 %type<list> program declaration_list name_space parameter_list nonempty_parameter_list
 %type<list> class_body class_definition 
-%type<name> qualified_name type parameter class_name enum_name
+%type<name> qualified_name type parameter class_name enum_name union_name
 %type<name> forward_declaration function_declaration function_definition name_declaration
 %type<flag> constqualifier
 
 %%
 
 program: declaration_list {
-		for_each($1.begin(), $1.end(), AddName(names));
+		for_each($1.begin(), $1.end(), AddName(context.names));
 	}
 	;
 
@@ -134,12 +216,21 @@ name_declaration:
   | function_definition
 
 class_definition:
-  class_name '{' class_body '}' ';' {
-		$$ = $3;
+  class_name '{' {
+    context.scopes.PushScope($1);
+  } class_body '}' ';' {
+		$$ = $4;
 		for_each($$.begin(), $$.end(), AddNamespace($1.Name));
 		$$.push_back($1);
+    context.scopes.PopScope();
   }
   | enum_name '{' {
+    begin_function_body(scanner);
+  }  
+  FUNCTION_BODY ';'  {
+ 		$$.push_back($1);
+  }
+  | union_name '{' {
     begin_function_body(scanner);
   }  
   FUNCTION_BODY ';'  {
@@ -153,6 +244,7 @@ class_name:
   }
   | STRUCT IDENT {
     $$ = NameInfo($2, NameInfo::NAME_STRUCT);
+    $$.Access = NameInfo::ACCESS_PUBLIC;
   }
   ;
 
@@ -161,8 +253,26 @@ enum_name:
     $$ = NameInfo($2, NameInfo::NAME_ENUM);
   }
 
+union_name:
+  UNION IDENT {
+    $$ = NameInfo($2, NameInfo::NAME_UNION);
+  }
+
 class_body: {}
+  | class_body PUBLIC ':' {
+    $$ = $1;
+    context.scopes.SetAccess(NameInfo::ACCESS_PUBLIC);
+  }
+  | class_body PRIVATE ':' {
+    $$ = $1;
+    context.scopes.SetAccess(NameInfo::ACCESS_PRIVATE);
+  }
+  | class_body PROTECTED ':' {
+    $$ = $1;
+    context.scopes.SetAccess(NameInfo::ACCESS_PROTECTED);
+  }
   | class_body name_declaration {
+    $2.Access = context.scopes.ScopeAccess();
     $$ = $1;
     $$.push_back($2);
   }
