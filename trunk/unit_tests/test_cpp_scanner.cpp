@@ -462,7 +462,7 @@ namespace CppNames
         CHECK_NAME(names, "First", NameInfo::NAME_CLASS);
       }
 
-      TESTCASE(Scan, ClassMethodDefinition)
+      TESTCASE(Scan, ClassMethodDefisnition)
       {
         std::stringstream content(
           "class First{\n"
@@ -728,7 +728,7 @@ namespace CppNames
       TESTCASE(Scan, ClassPublicInheritance)
       {
         std::stringstream content(
-          "class Second:public First\n"
+          "class Second: public First\n"
           "{\n"
           "};\n"
           );
@@ -744,6 +744,7 @@ namespace CppNames
         CHECK(FindNameInfo(info.Parents, "First", parent));
         EQUAL(NameInfo::NAME_CLASS, parent.Type);
         EQUAL(NameInfo::ACCESS_PUBLIC, parent.Access);
+        CHECK(false == parent.IsVirtual);
       }
 
       TESTCASE(Scan, StructInheritance)
@@ -787,6 +788,50 @@ namespace CppNames
         EQUAL(NameInfo::NAME_CLASS, parent.Type);
         EQUAL(NameInfo::ACCESS_PRIVATE, parent.Access);
 
+      }
+
+      TESTCASE(Scan, VirtualMethod)
+      {
+        std::stringstream content(
+          "class First{\n"
+          "  virtual int Function(double name);\n"
+          "  int NonVirtualFunction(double name);\n"
+          "};\n"
+          );
+        NameInfoSet names;
+        CppScanner scanner;
+        CHECK(scanner.Scan(content, names));
+
+        NameInfo info;
+        CHECK(FindNameInfo(names, "First::NonVirtualFunction", info));
+        EQUAL(NameInfo::NAME_FUNCTION, info.Type);
+        CHECK(false == info.IsVirtual);
+
+        CHECK(FindNameInfo(names, "First::Function", info));
+        EQUAL(NameInfo::NAME_FUNCTION, info.Type);
+        CHECK(true == info.IsVirtual);
+      }
+
+      TESTCASE(Scan, ClassVirtualInheritance)
+      {
+        std::stringstream content(
+          "class Second: virtual public First\n"
+          "{\n"
+          "};\n"
+          );
+        NameInfoSet names;
+        CppScanner scanner;
+        CHECK(scanner.Scan(content, names));
+
+        NameInfo info;
+        CHECK(FindNameInfo(names, "Second", info));
+        EQUAL(NameInfo::NAME_CLASS, info.Type);
+
+        NameInfo parent;
+        CHECK(FindNameInfo(info.Parents, "First", parent));
+        EQUAL(NameInfo::NAME_CLASS, parent.Type);
+        EQUAL(NameInfo::ACCESS_PUBLIC, parent.Access);
+        CHECK(true == parent.IsVirtual);
       }
 
     }
