@@ -167,16 +167,16 @@ struct AddNamespace
 }
 
 %token NAMESPACE '{' '}' QUALIFIER UNQUALIFIER CLASS STRUCT ENUM UNION PRIVATE PUBLIC PROTECTED
-%token VIRTUAL
+%token VIRTUAL CATCH THREEDOT
 %left CONST '*' '&'
 %token '(' ')' ';' ',' '=' ':'
 %token<ident> IDENT FUNCTION_BODY 
 %token<intvalue> INTVALUE
-%type<list> program declaration_list name_space parameter_list nonempty_parameter_list
+%type<list> program declaration_list namespace_declaration parameter_list nonempty_parameter_list
 %type<list> class_body class_definition 
 %type<name> qualified_name type parameter class_name enum_name union_name
 %type<name> forward_declaration function_declaration function_definition name_declaration
-%type<list> class_inheritance inheritance_list
+%type<list> class_inheritance inheritance_list catchlist
 %type<name> inheritance_name
 %type<flag> constqualifier virtualqualifier abstractqualifier
 %type<access> access_qualifier
@@ -188,21 +188,8 @@ program: declaration_list {
 	}
 	;
 
-name_space:
-	NAMESPACE IDENT '{' declaration_list '}' {
-		$$ = $4;
-		for_each($$.begin(), $$.end(), AddNamespace($2));
-		$$.push_back(NameInfo($2, NameInfo::NAME_NAMESPACE));
-	}
-  | NAMESPACE '{' declaration_list '}' {
-		$$ = $3;
-		for_each($$.begin(), $$.end(), AddNamespace("anonymous"));
-		$$.push_back(NameInfo("anonymous", NameInfo::NAME_NAMESPACE));
-	}
-	;
-
 declaration_list: { }
-	| declaration_list name_space {
+	| declaration_list namespace_declaration {
 		$$ = $1;
 		$$.insert($$.end(), $2.begin(), $2.end());
   }
@@ -214,6 +201,22 @@ declaration_list: { }
 		$$ = $1;
 		$$.insert($$.end(), $2.begin(), $2.end());
   }
+  | declaration_list error {
+    $$ = $1;
+  }
+	;
+
+namespace_declaration:
+	NAMESPACE IDENT '{' declaration_list '}' {
+		$$ = $4;
+		for_each($$.begin(), $$.end(), AddNamespace($2));
+		$$.push_back(NameInfo($2, NameInfo::NAME_NAMESPACE));
+	}
+  | NAMESPACE '{' declaration_list '}' {
+		$$ = $3;
+		for_each($$.begin(), $$.end(), AddNamespace("anonymous"));
+		$$.push_back(NameInfo("anonymous", NameInfo::NAME_NAMESPACE));
+	}
 	;
 
 name_declaration:
@@ -354,7 +357,7 @@ function_definition:
   {
     begin_function_body(scanner);
   }  
-  FUNCTION_BODY 
+  FUNCTION_BODY catchlist
   {
     $$ = $3;
     $$.Type = NameInfo::NAME_FUNCTION;
@@ -362,6 +365,19 @@ function_definition:
     $$.IsVirtual = $1;
   }
   ;
+
+catchlist: {}
+  | catchlist CATCH '(' catch_parameter ')' '{'
+  {
+    begin_function_body(scanner);
+  }
+  FUNCTION_BODY
+  {
+  }
+
+catch_parameter: 
+  parameter
+  | THREEDOT
 
 abstractqualifier:
   {

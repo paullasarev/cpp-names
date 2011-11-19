@@ -251,10 +251,12 @@ namespace CppNames {
      PUBLIC = 266,
      PROTECTED = 267,
      VIRTUAL = 268,
-     CONST = 269,
-     IDENT = 270,
-     FUNCTION_BODY = 271,
-     INTVALUE = 272
+     CATCH = 269,
+     THREEDOT = 270,
+     CONST = 271,
+     IDENT = 272,
+     FUNCTION_BODY = 273,
+     INTVALUE = 274
    };
 
     };
@@ -351,7 +353,7 @@ namespace CppNames {
     static const signed char yytable_[];
     static const signed char yytable_ninf_;
 
-    static const signed char yycheck_[];
+    static const unsigned char yycheck_[];
 
     /// For a state, its accessing symbol.
     static const unsigned char yystos_[];
@@ -431,7 +433,7 @@ namespace CppNames {
 } // CppNames
 
 /* Line 34 of lalr1.cc  */
-#line 435 "cpp_scanner_y.hpp"
+#line 437 "cpp_scanner_y.hpp"
 
 
 

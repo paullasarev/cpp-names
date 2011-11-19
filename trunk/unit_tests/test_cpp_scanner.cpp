@@ -859,6 +859,22 @@ namespace CppNames
         CHECK(false == info.IsVirtual);
       }
 
+      TESTCASE(Scan, FuctionLevelException)
+      {
+        std::stringstream content(
+          "class First\n"
+          "{\n"
+          "  int Function(double name) {} catch (excepton& ex) {}\n"
+          "};\n"
+          );
+        NameInfoSet names;
+        CppScanner scanner;
+        CHECK(scanner.Scan(content, names));
+
+        CHECK_NAME(names, "First::Function", NameInfo::NAME_FUNCTION);
+      }
+
+
     }
   }
 }
