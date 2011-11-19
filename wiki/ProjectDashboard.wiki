@@ -74,6 +74,11 @@ Cpp parser :
  * !ConstClassMethodDeclaration
  * !EnumDeclaration (body is not parsed and is recognized lexycally, as one token)
  * !UnionDeclaration (body is not parsed and is recognized lexycally, as one token)
+ * !DefaultClassAccess
+ * !DefaultStructAccess
+ * !DefaultInnerStructAccess
+ * !PublicPrivateProtected
+ * !PublicPrivateProtectedWithSpaces
 
  
 =Planned  features=
@@ -86,7 +91,6 @@ Infrastructure:
  * Add version numbering
 
 !CppParser:
- * !PrivatePublicProtected
  * !ClassInheritance
  * !VirtualClassMethod
  * !AbstractClassMethod
