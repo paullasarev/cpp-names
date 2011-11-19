@@ -79,7 +79,10 @@ Cpp parser :
  * !DefaultInnerStructAccess
  * !PublicPrivateProtected
  * !PublicPrivateProtectedWithSpaces
-
+ * !ClassInheritance
+ * !ClassPublicInheritance
+ * !StructInheritance
+ * !StructPrivateInheritance
  
 =Planned  features=
 
@@ -94,8 +97,8 @@ Infrastructure:
  * Version
 
 !CppParser:
- * !ClassInheritance
  * !VirtualClassMethod
+ * !ClassVirtualInheritance
  * !AbstractClassMethod
  * !FuctionLevelException
  * !FriendDeclaration
