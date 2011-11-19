@@ -167,7 +167,7 @@ struct AddNamespace
 }
 
 %token NAMESPACE '{' '}' QUALIFIER UNQUALIFIER CLASS STRUCT ENUM UNION PRIVATE PUBLIC PROTECTED
-%token VIRTUAL CATCH THREEDOT
+%token VIRTUAL CATCH THREEDOT FRIEND
 %left CONST '*' '&'
 %token '(' ')' ';' ',' '=' ':'
 %token<ident> IDENT FUNCTION_BODY 
@@ -339,6 +339,10 @@ forward_declaration:
   class_name ';' {
     $$ = $1;
   }
+  | FRIEND class_name ';' {
+    $$ = $2;
+    $$.IsFriend = true;
+  }
   ;
 
 function_declaration:
@@ -349,6 +353,12 @@ function_declaration:
     $$.IsConst = $7;
     $$.IsVirtual = $1;
     $$.IsAbstract = $8;
+  }
+  | FRIEND type qualified_name '(' parameter_list ')' ';' 
+  {
+    $$ = $3;
+    $$.Type = NameInfo::NAME_FUNCTION;
+    $$.IsFriend = true;
   }
   ;
 
@@ -392,6 +402,7 @@ abstractqualifier:
       YYERROR;
     }
   }
+
 virtualqualifier:
   {
     $$ = false;

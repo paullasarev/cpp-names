@@ -874,7 +874,43 @@ namespace CppNames
         CHECK_NAME(names, "First::Function", NameInfo::NAME_FUNCTION);
       }
 
+      TESTCASE(Scan, FriendClassDeclaration)
+      {
+        std::stringstream content(
+          "class First\n"
+          "{\n"
+          "  friend class Second;\n"
+          "};\n"
+          );
+        NameInfoSet names;
+        CppScanner scanner;
+        CHECK(scanner.Scan(content, names));
 
+        NameInfo info;
+        CHECK(FindNameInfo(names, "First::Second", info));
+        EQUAL(NameInfo::NAME_CLASS, info.Type);
+        CHECK(true == info.IsFriend);
+      }
+
+      TESTCASE(Scan, FriendFunctionDeclaration)
+      {
+        std::stringstream content(
+          "class First\n"
+          "{\n"
+          "  friend int Function(double par);\n"
+          "};\n"
+          );
+        NameInfoSet names;
+        CppScanner scanner;
+        CHECK(scanner.Scan(content, names));
+
+        NameInfo info;
+        CHECK(FindNameInfo(names, "First::Function", info));
+        EQUAL(NameInfo::NAME_FUNCTION, info.Type);
+        CHECK(true == info.IsFriend);
+      }
+      
+      
     }
   }
 }
