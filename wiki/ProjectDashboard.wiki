@@ -87,6 +87,9 @@ Infrastructure:
 
 !CppParser:
  * !PrivatePublicProtected
+ * !ClassInheritance
+ * !VirtualClassMethod
+ * !AbstractClassMethod
  * !TypedefDeclaration
  * !TemplateDeclaration
  * !SpecializedTemplate
