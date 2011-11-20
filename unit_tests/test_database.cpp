@@ -13,7 +13,7 @@ namespace CppNames
     TESTCASE(DatabaseOperation, EmptyCppInDirectory)
     {
       Database database;
-      database.Scan("../unit_tests/data/dir_with_files");
+      database.Scan("../data/dir_with_files");
       FileInfo info;
       CHECK(database.FindFile("/file.cpp", info));
     }
@@ -21,7 +21,7 @@ namespace CppNames
     TESTCASE(DatabaseOperation, NamescpaceInDirectory)
     {
       Database database;
-      database.Scan("../unit_tests/data/dir_with_files");
+      database.Scan("../data/dir_with_files");
 
       NameInfo info;
       CHECK(database.FindName("First", info));
