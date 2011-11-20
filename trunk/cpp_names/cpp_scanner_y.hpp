@@ -56,6 +56,7 @@ namespace CppNames
     std::string ident;
     NameInfo name;
     int intvalue;
+    int doublevalue;
     NameInfoList list;
     bool flag;
     NameInfo::NameAccess access;
@@ -153,7 +154,7 @@ namespace CppNames
 
 
 /* Line 34 of lalr1.cc  */
-#line 157 "cpp_scanner_y.hpp"
+#line 158 "cpp_scanner_y.hpp"
 
 
 #include <string>
@@ -166,7 +167,7 @@ namespace CppNames
 namespace CppNames {
 
 /* Line 34 of lalr1.cc  */
-#line 170 "cpp_scanner_y.hpp"
+#line 171 "cpp_scanner_y.hpp"
   class position;
   class location;
 
@@ -175,7 +176,7 @@ namespace CppNames {
 } // CppNames
 
 /* Line 34 of lalr1.cc  */
-#line 179 "cpp_scanner_y.hpp"
+#line 180 "cpp_scanner_y.hpp"
 
 #include "location.hh"
 
@@ -222,7 +223,7 @@ do {							\
 namespace CppNames {
 
 /* Line 34 of lalr1.cc  */
-#line 226 "cpp_scanner_y.hpp"
+#line 227 "cpp_scanner_y.hpp"
 
   /// A Bison parser.
   class CppBisonParser
@@ -261,7 +262,10 @@ namespace CppNames {
      CONST = 275,
      IDENT = 276,
      FUNCTION_BODY = 277,
-     INTVALUE = 278
+     PARAMETER_LIST = 278,
+     INTVALUE = 279,
+     FLOATVALUE = 280,
+     STRINGVALUE = 281
    };
 
     };
@@ -358,7 +362,7 @@ namespace CppNames {
     static const short int yytable_[];
     static const signed char yytable_ninf_;
 
-    static const unsigned char yycheck_[];
+    static const short int yycheck_[];
 
     /// For a state, its accessing symbol.
     static const unsigned char yystos_[];
@@ -438,7 +442,7 @@ namespace CppNames {
 } // CppNames
 
 /* Line 34 of lalr1.cc  */
-#line 442 "cpp_scanner_y.hpp"
+#line 446 "cpp_scanner_y.hpp"
 
 
 

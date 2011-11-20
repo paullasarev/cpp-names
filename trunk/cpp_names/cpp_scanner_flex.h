@@ -54,11 +54,18 @@ namespace CppNames
         return yyout;
       }
 
-      void begin_function_body()
-      {
 #define M_BEGIN (yy_start) = 1 + 2 *
 #define M_FUNCTION 1
+#define M_PARAMETERS 2
+      void begin_function_body()
+      {
         M_BEGIN(M_FUNCTION);
+        bracket_level = 1;
+      }
+
+      void begin_parameter_list()
+      {
+        M_BEGIN(M_PARAMETERS);
         bracket_level = 1;
       }
 
