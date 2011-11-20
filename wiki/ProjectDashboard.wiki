@@ -98,8 +98,18 @@ Cpp parser :
  * !NestedTemplatedType
  * !PreprocessorDirective
  * !PreprocessorMultilineDirective
+ * !FileVariable
+ * !InitIntConstant
+ * !InitFloatConstant
+ * !InitStringConstant
+ * !InitAssign
+ * !InitBlock
+ * !ArrayType
+ * !UnspecifiedArrayType
+ * !ArrayTypeInit
+ * !UnspecifiedArrayTypeInit
 
-*Unit tests: Passed/Total: 76/76*
+*Unit tests: Passed/Total: 86/86*
 
 
 =Planned  features=
@@ -115,7 +125,6 @@ Infrastructure:
  * Version
 
 !CppParser:
- * !FileScopeConstant
 
 !FileScanner:
  * !FixDeclarationPlace
