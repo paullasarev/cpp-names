@@ -120,6 +120,7 @@ Refactoring:
 
 Infrastructure:
  * Add version numbering
+ * package distribution with [http://en.wikipedia.org/wiki/Cpack cpack]
 
 !CommandLine:
  * Version
