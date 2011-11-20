@@ -98,7 +98,7 @@ Cpp parser :
  * !NestedTemplatedType
 
 
-*Unit tests: Passed/Total == 74/74*
+*Unit tests: Passed/Total: 74/74*
 
 
 =Planned  features=
