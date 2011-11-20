@@ -93,9 +93,12 @@ Cpp parser :
  * !FunctionTemplate
  * !ClassTemplate
  * !ClassTemplateDefault
+ * !TemplatedType
+ * !TemplateTemplateParameter
+ * !NestedTemplatedType
 
 
-*Passed unit tests/Total unit test: 71/71*
+*Passed unit tests/Total unit test: 74/74*
 
 
 =Planned  features=
@@ -111,10 +114,8 @@ Infrastructure:
  * Version
 
 !CppParser:
- * !TemplatedType
- * !TemplateTemplateParameter 
- * !FileScopeConstant
  * !PreprocessorDirective
+ * !FileScopeConstant
 
 !FileScanner:
  * !FixDeclarationPlace
