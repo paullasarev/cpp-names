@@ -16,6 +16,7 @@
 
 %x FUNCTION
 %x COMMENT
+%x PREPROCESSOR
 
 D			[0-9]
 L			[a-zA-Z_]
@@ -26,7 +27,8 @@ INTSPEC			(u|U|l|L)*
 NL \r?\n
 SPACE [ \t]
 IDENT [A-Za-z_][A-Za-z0-9_]*
-LINECOMMENT ^{SPACE}*"//"[^\r\n]*{NL}
+NOTNL [^\r\n]
+LINECOMMENT ^{SPACE}*"//"{NOTNL}*{NL}
 
 %%
 
@@ -36,6 +38,21 @@ LINECOMMENT ^{SPACE}*"//"[^\r\n]*{NL}
 <INITIAL,FUNCTION>"/*" {
   comment_state = YYSTATE;
   BEGIN(COMMENT);
+}
+
+^"#" {
+  BEGIN(PREPROCESSOR);
+}
+
+<PREPROCESSOR>{NOTNL}*"\\"{NL} {
+  yylloc->lines(1);
+  yylloc->step();
+}
+
+<PREPROCESSOR>{NOTNL}*{NL} {
+  yylloc->lines(1);
+  yylloc->step();
+  BEGIN(INITIAL);
 }
 
 <COMMENT>[^*\r\n]+ {
