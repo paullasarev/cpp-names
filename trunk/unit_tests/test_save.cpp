@@ -29,11 +29,11 @@ namespace CppNames
 
     TESTCASE(SaveDatabase, DatabaseSave)
     {
-      std::string databaseName("../unit_tests/data/database1.csv");
+      std::string databaseName("../data/database1.csv");
       Database database;
 
       std::remove(databaseName.c_str());
-      database.Scan("../unit_tests/data/dir_with_files");
+      database.Scan("../data/dir_with_files");
       database.Save(databaseName);
       
       CHECK(fexists(databaseName));

@@ -21,7 +21,7 @@ namespace CppNames
       TESTCASE(Scan, EmptyDirectory)
       {
         tree.ExcludeDirectories(".svn");
-        tree.Scan("../unit_tests/data/empty_dir", "/");
+        tree.Scan("../data/empty_dir", "/");
 
         CHECK(TreeFiles().size() == 1);
         FileInfo info;
@@ -31,7 +31,7 @@ namespace CppNames
 
       TESTCASE(Scan, NonExistentDirectory)
       {
-        tree.Scan("../unit_tests/data/non_existent_dir", "/");
+        tree.Scan("../data/non_existent_dir", "/");
 
         CHECK(TreeFiles().size() == 0);
       }
@@ -39,7 +39,7 @@ namespace CppNames
       TESTCASE(Scan, Subdir)
       {
         tree.ExcludeDirectories(".svn");
-        tree.Scan("../unit_tests/data/dir_with_subdir", "/");
+        tree.Scan("../data/dir_with_subdir", "/");
 
         EQUAL(size_t(2), TreeFiles().size());
 
@@ -51,7 +51,7 @@ namespace CppNames
       TESTCASE(Scan, DirWithSVN)
       {
         tree.ExcludeDirectories(".svn");
-        tree.Scan("../unit_tests/data/dir_with_svn", "/");
+        tree.Scan("../data/dir_with_svn", "/");
 
         EQUAL(size_t(1), TreeFiles().size());
 
@@ -62,7 +62,7 @@ namespace CppNames
       TESTCASE(Scan, DirWithCpp)
       {
         tree.IncludeFiles(".cpp");
-        tree.Scan("../unit_tests/data/dir_with_files", "/");
+        tree.Scan("../data/dir_with_files", "/");
 
         CHECK(TreeFiles().size() > 1);
 
@@ -74,7 +74,7 @@ namespace CppNames
       TESTCASE(Scan, DirWithTxt)
       {
         tree.IncludeFiles(".cpp");
-        tree.Scan("../unit_tests/data/dir_with_files", "/");
+        tree.Scan("../data/dir_with_files", "/");
 
         CHECK(TreeFiles().size() > 1);
 
@@ -84,7 +84,7 @@ namespace CppNames
 
       TESTCASE(Scan, ParentDir)
       {
-        tree.Scan("../unit_tests/data/dir_with_subdir", "/");
+        tree.Scan("../data/dir_with_subdir", "/");
 
         FileInfo info;
         CHECK(tree.Find("/", info));
@@ -96,11 +96,11 @@ namespace CppNames
 
       TESTCASE(Scan, FullName)
       {
-        tree.Scan("../unit_tests/data/dir_with_subdir", "/");
+        tree.Scan("../data/dir_with_subdir", "/");
 
         FileInfo info;
         CHECK(tree.Find("/subdir/", info));
-        EQUAL(std::string("../unit_tests/data/dir_with_subdir/subdir"), info.FullPath);
+        EQUAL(std::string("../data/dir_with_subdir/subdir"), info.FullPath);
       }
     }
   }
