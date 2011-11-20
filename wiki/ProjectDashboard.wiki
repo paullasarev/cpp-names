@@ -111,12 +111,10 @@ Infrastructure:
  * Version
 
 !CppParser:
- * !PreprocessorDefine
- * !PreprocessorIfdef
- * !PreprocessorIfndef
- * !PreprocessorElse
- * !PreprocessorIf
- * !PreprocessorInclude
+ * !TemplatedType
+ * !TemplateTemplateParameter 
+ * !FileScopeConstant
+ * !PreprocessorDirective
 
 !FileScanner:
  * !FixDeclarationPlace
