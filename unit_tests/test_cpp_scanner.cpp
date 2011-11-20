@@ -1029,7 +1029,31 @@ namespace CppNames
 
         CHECK_NAME(names, "Function", NameInfo::NAME_FUNCTION);
       }
-      
+
+      TESTCASE(Scan, PreprocessorDirective)
+      {
+        std::stringstream content(
+          "#define MIN(x,y) ((x)<(y)?(x):(y))\n"
+          "\n"
+          );
+        NameInfoSet names;
+        CppScanner scanner;
+        CHECK(scanner.Scan(content, names));
+      }
+
+      TESTCASE(Scan, PreprocessorMultilineDirective)
+      {
+        std::stringstream content(
+          "#define MIN(x,y) \\\n"
+          "     ((x)<(y)?(x):(y))\n"
+          "int Function(double name);\n"
+          );
+        NameInfoSet names;
+        CppScanner scanner;
+        CHECK(scanner.Scan(content, names));
+
+        CHECK_NAME(names, "Function", NameInfo::NAME_FUNCTION);
+      }
     }
   }
 }
