@@ -10,6 +10,9 @@ namespace CppNames
   public:
     CppScanner();
     virtual bool Scan(std::istream& inputStream, NameInfoSet& names);
+    int ErrorCount() const;
+  private:
+    int error_count_;
   };
 }
 

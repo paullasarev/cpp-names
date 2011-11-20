@@ -292,12 +292,13 @@ namespace CppNames
       TESTCASE(Scan, ConstType)
       {
         std::stringstream content(
-          "const int* Function(double name);\n"
+          "const char* Function(double name);\n"
           );
         NameInfoSet names;
         CppScanner scanner;
         CHECK(scanner.Scan(content, names));
         CHECK(names.size() == 1);
+        CHECK(scanner.ErrorCount() == 0);
 
         CHECK_NAME(names, "Function", NameInfo::NAME_FUNCTION);
       }
@@ -980,6 +981,53 @@ namespace CppNames
         CHECK(FindNameInfo(names, "First", info));
         EQUAL(NameInfo::NAME_CLASS, info.Type);
         EQUAL(true, info.IsTemplate);
+      }
+      
+      TESTCASE(Scan, TemplatedType)
+      {
+        std::stringstream content(
+          "vector<int> Function()\n"
+          "{\n"
+          "}\n"
+          );
+        NameInfoSet names;
+        CppScanner scanner;
+        CHECK(scanner.Scan(content, names));
+
+        CHECK_NAME(names, "Function", NameInfo::NAME_FUNCTION);
+      }
+
+      TESTCASE(Scan, TemplateTemplateParameter)
+      {
+        std::stringstream content(
+          "template < template <class A> class T>\n"
+          "class First\n"
+          "{\n"
+          "  T Function(T2 t);\n"
+          "};\n"
+          );
+        NameInfoSet names;
+        CppScanner scanner;
+        CHECK(scanner.Scan(content, names));
+
+        NameInfo info;
+        CHECK(FindNameInfo(names, "First", info));
+        EQUAL(NameInfo::NAME_CLASS, info.Type);
+        EQUAL(true, info.IsTemplate);
+      }
+      
+      TESTCASE(Scan, NestedTemplatedType)
+      {
+        std::stringstream content(
+          "vector<list<int> > Function()\n"
+          "{\n"
+          "}\n"
+          );
+        NameInfoSet names;
+        CppScanner scanner;
+        CHECK(scanner.Scan(content, names));
+
+        CHECK_NAME(names, "Function", NameInfo::NAME_FUNCTION);
       }
       
     }

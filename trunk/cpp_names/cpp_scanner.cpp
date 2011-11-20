@@ -4,15 +4,23 @@
 
 namespace CppNames
 {
-  CppScanner::CppScanner()
+  CppScanner::CppScanner(): error_count_(0)
   {
   }
 
   bool CppScanner::Scan(std::istream& inputStream, NameInfoSet& names)
   {
+    error_count_ = 0;
     CppFlexScanner scanner(&inputStream);
     CppBisonParserContext context(names);
     CppBisonParser parser(scanner, context);
-    return parser.parse() == 0;
+    int result = parser.parse();
+    error_count_ = context.error_count;  
+    return result == 0 && error_count_ == 0;
+  }
+
+  int CppScanner::ErrorCount() const
+  {
+    return error_count_;
   }
 }

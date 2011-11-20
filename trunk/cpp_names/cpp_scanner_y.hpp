@@ -38,7 +38,7 @@
 /* "%code requires" blocks.  */
 
 /* Line 34 of lalr1.cc  */
-#line 13 "cpp_scanner.y"
+#line 14 "cpp_scanner.y"
 
 #include "name_info.h"
 
@@ -137,9 +137,10 @@ namespace CppNames
   {
     NameInfoSet& names;
     ScopeStack scopes;
+    int error_count;
 
     CppBisonParserContext(NameInfoSet& p_names)
-      : names(p_names)
+      : names(p_names), error_count(0)
     {
     }
   };
@@ -152,7 +153,7 @@ namespace CppNames
 
 
 /* Line 34 of lalr1.cc  */
-#line 156 "cpp_scanner_y.hpp"
+#line 157 "cpp_scanner_y.hpp"
 
 
 #include <string>
@@ -165,7 +166,7 @@ namespace CppNames
 namespace CppNames {
 
 /* Line 34 of lalr1.cc  */
-#line 169 "cpp_scanner_y.hpp"
+#line 170 "cpp_scanner_y.hpp"
   class position;
   class location;
 
@@ -174,7 +175,7 @@ namespace CppNames {
 } // CppNames
 
 /* Line 34 of lalr1.cc  */
-#line 178 "cpp_scanner_y.hpp"
+#line 179 "cpp_scanner_y.hpp"
 
 #include "location.hh"
 
@@ -221,7 +222,7 @@ do {							\
 namespace CppNames {
 
 /* Line 34 of lalr1.cc  */
-#line 225 "cpp_scanner_y.hpp"
+#line 226 "cpp_scanner_y.hpp"
 
   /// A Bison parser.
   class CppBisonParser
@@ -357,7 +358,7 @@ namespace CppNames {
     static const short int yytable_[];
     static const signed char yytable_ninf_;
 
-    static const short int yycheck_[];
+    static const unsigned char yycheck_[];
 
     /// For a state, its accessing symbol.
     static const unsigned char yystos_[];
@@ -437,7 +438,7 @@ namespace CppNames {
 } // CppNames
 
 /* Line 34 of lalr1.cc  */
-#line 441 "cpp_scanner_y.hpp"
+#line 442 "cpp_scanner_y.hpp"
 
 
 
