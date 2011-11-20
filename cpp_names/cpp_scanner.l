@@ -15,7 +15,9 @@
 %}
 
 %x FUNCTION
+%x PARAMETERS
 %x COMMENT
+%x STRING
 %x PREPROCESSOR
 
 D			[0-9]
@@ -32,13 +34,39 @@ LINECOMMENT ^{SPACE}*"//"{NOTNL}*{NL}
 
 %%
 
-<INITIAL,FUNCTION>{LINECOMMENT} {
+<INITIAL,FUNCTION,PARAMETERS>{LINECOMMENT} {
 }
 
-<INITIAL,FUNCTION>"/*" {
+<INITIAL,FUNCTION,PARAMETERS>"/*" {
   comment_state = YYSTATE;
   BEGIN(COMMENT);
 }
+
+<INITIAL,FUNCTION,PARAMETERS>L?\" {
+  comment_state = YYSTATE;
+  BEGIN(STRING);
+}
+
+<STRING>[^*\r\n\\\"]+ {
+}
+
+<STRING>\\\" {
+}
+
+<STRING>{NL} {
+  yylloc->lines(1);
+  yylloc->step();
+}
+
+<STRING>\" {
+  BEGIN(comment_state);
+  return CppBisonParser::token::STRINGVALUE;
+}
+
+<STRING>. {
+}
+
+
 
 ^"#" {
   BEGIN(PREPROCESSOR);
@@ -53,6 +81,9 @@ LINECOMMENT ^{SPACE}*"//"{NOTNL}*{NL}
   yylloc->lines(1);
   yylloc->step();
   BEGIN(INITIAL);
+}
+
+<PREPROCESSOR>. {
 }
 
 <COMMENT>[^*\r\n]+ {
@@ -86,15 +117,45 @@ LINECOMMENT ^{SPACE}*"//"{NOTNL}*{NL}
 "template"  { return CppBisonParser::token::TEMPLATE; }
 "typename"  { return CppBisonParser::token::TYPENAME; }
 
+0[xX]{H}+{INTSPEC}?		{ 
+  yylval->intvalue = std::strtol(yytext, 0, 16); 
+  return CppBisonParser::token::INTVALUE; 
+}
+
+0{D}+{INTSPEC}?		{
+  std::strtol(yytext, 0, 8);
+  return CppBisonParser::token::INTVALUE; 
+}
+
 {D}+{INTSPEC}? {
   yylval->intvalue = std::atoi(yytext); 
   return CppBisonParser::token::INTVALUE; 
+}
+
+L?\'(\\.|[^\\'])+\'	{
+  std::strtol(yytext + 1, 0, 0);
+  return CppBisonParser::token::INTVALUE; 
+}
+
+
+{D}+{E}{FLOATSPEC}?   { 
+  return CppBisonParser::token::FLOATVALUE; 
+}
+
+{D}*"."{D}+({E})?{FLOATSPEC}? { 
+  return CppBisonParser::token::FLOATVALUE; 
+}
+
+{D}+"."{D}*({E})?{FLOATSPEC}? { 
+  return CppBisonParser::token::FLOATVALUE; 
 }
 
 \{  { return '{'; }
 \}  {	return '}'; }
 \(  { return '('; }
 \)  { return ')';	}
+\[  { return '['; }
+\]  { return ']';	}
 \<  { return '<'; }
 \>  {	return '>'; }
 \;  { return ';'; }
@@ -141,6 +202,33 @@ LINECOMMENT ^{SPACE}*"//"{NOTNL}*{NL}
 
 <FUNCTION>. {
 }
+
+<PARAMETERS>[^\(\)\r\n/]+ {
+}
+
+<PARAMETERS>{NL}	{
+  yylloc->lines(1);
+  yylloc->step();
+}
+
+<PARAMETERS>\( {
+    ++bracket_level;
+}
+
+<PARAMETERS>\) {
+    --bracket_level;
+    if (bracket_level == 0)
+    {
+      BEGIN(INITIAL);
+		  yylval->ident = std::string(yytext, yyleng); 
+		  return CppBisonParser::token::PARAMETER_LIST;
+    }
+}
+
+<PARAMETERS>. {
+}
+
+
 
 {IDENT}	 { 
 		yylval->ident = std::string(yytext, yyleng); 

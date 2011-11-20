@@ -1054,6 +1054,126 @@ namespace CppNames
 
         CHECK_NAME(names, "Function", NameInfo::NAME_FUNCTION);
       }
+
+      TESTCASE(Scan, FileVariable)
+      {
+        std::stringstream content(
+          "int Foo;\n"
+          );
+        NameInfoSet names;
+        CppScanner scanner;
+        CHECK(scanner.Scan(content, names));
+
+        CHECK_NAME(names, "Foo", NameInfo::NAME_SYMBOL);
+      }
+
+      TESTCASE(Scan, InitIntConstant)
+      {
+        std::stringstream content(
+          "int Foo( 10 ) ;\n"
+          );
+        NameInfoSet names;
+        CppScanner scanner;
+        CHECK(scanner.Scan(content, names));
+
+        CHECK_NAME(names, "Foo", NameInfo::NAME_SYMBOL);
+      }
+
+      TESTCASE(Scan, InitFloatConstant)
+      {
+        std::stringstream content(
+          "int Foo(10.2);\n"
+          );
+        NameInfoSet names;
+        CppScanner scanner;
+        CHECK(scanner.Scan(content, names));
+
+        CHECK_NAME(names, "Foo", NameInfo::NAME_SYMBOL);
+      }
+
+      TESTCASE(Scan, InitStringConstant)
+      {
+        std::stringstream content(
+          "int Foo(\"asdf \");\n"
+          );
+        NameInfoSet names;
+        CppScanner scanner;
+        CHECK(scanner.Scan(content, names));
+
+        CHECK_NAME(names, "Foo", NameInfo::NAME_SYMBOL);
+      }
+
+      TESTCASE(Scan, InitAssign)
+      {
+        std::stringstream content(
+          "int Foo = 10;\n"
+          );
+        NameInfoSet names;
+        CppScanner scanner;
+        CHECK(scanner.Scan(content, names));
+
+        CHECK_NAME(names, "Foo", NameInfo::NAME_SYMBOL);
+      }
+
+      TESTCASE(Scan, InitBlock)
+      {
+        std::stringstream content(
+          "int Foo = { 10 };\n"
+          );
+        NameInfoSet names;
+        CppScanner scanner;
+        CHECK(scanner.Scan(content, names));
+
+        CHECK_NAME(names, "Foo", NameInfo::NAME_SYMBOL);
+      }
+
+      TESTCASE(Scan, ArrayType)
+      {
+        std::stringstream content(
+          "int Foo[10];\n"
+          );
+        NameInfoSet names;
+        CppScanner scanner;
+        CHECK(scanner.Scan(content, names));
+
+        CHECK_NAME(names, "Foo", NameInfo::NAME_SYMBOL);
+      }
+
+      TESTCASE(Scan, UnspecifiedArrayType)
+      {
+        std::stringstream content(
+          "int Foo[];\n"
+          );
+        NameInfoSet names;
+        CppScanner scanner;
+        CHECK(scanner.Scan(content, names));
+
+        CHECK_NAME(names, "Foo", NameInfo::NAME_SYMBOL);
+      }
+
+      TESTCASE(Scan, ArrayTypeInit)
+      {
+        std::stringstream content(
+          "int Foo[10] = { 1, 2, 3 };\n"
+          );
+        NameInfoSet names;
+        CppScanner scanner;
+        CHECK(scanner.Scan(content, names));
+
+        CHECK_NAME(names, "Foo", NameInfo::NAME_SYMBOL);
+      }
+
+      TESTCASE(Scan, UnspecifiedArrayTypeInit)
+      {
+        std::stringstream content(
+          "int Foo[] = { 1, 2, 3 };\n"
+          );
+        NameInfoSet names;
+        CppScanner scanner;
+        CHECK(scanner.Scan(content, names));
+
+        CHECK_NAME(names, "Foo", NameInfo::NAME_SYMBOL);
+      }
     }
   }
 }

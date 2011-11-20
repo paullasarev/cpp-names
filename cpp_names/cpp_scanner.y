@@ -28,6 +28,7 @@ namespace CppNames
     std::string ident;
     NameInfo name;
     int intvalue;
+    int doublevalue;
     NameInfoList list;
     bool flag;
     NameInfo::NameAccess access;
@@ -127,6 +128,7 @@ namespace CppNames
 {
 static int yylex(CppNames::CppBisonParser::semantic_type* yylval,  CppNames::CppBisonParser::location_type* yyloc,  CppNames::CppFlexScanner& scanner);
 static void begin_function_body(CppNames::CppFlexScanner& scanner);
+static void begin_parameter_list(CppNames::CppFlexScanner& scanner);
 
 namespace CppNames
 {
@@ -169,18 +171,18 @@ struct AddNamespace
 }
 
 %token NAMESPACE '{' '}' QUALIFIER UNQUALIFIER CLASS STRUCT ENUM UNION PRIVATE PUBLIC PROTECTED
-%token VIRTUAL CATCH THREEDOT FRIEND TYPEDEF TEMPLATE TYPENAME
+%token VIRTUAL CATCH THREEDOT FRIEND TYPEDEF TEMPLATE TYPENAME 
 %left CONST '*' '&'
-%token '(' ')' ';' ',' '=' ':' '<' '>'
-%token<ident> IDENT FUNCTION_BODY 
-%token<intvalue> INTVALUE
+%token '(' ')' ';' ',' '=' ':' '<' '>' '[' ']'
+%token<ident> IDENT FUNCTION_BODY PARAMETER_LIST
+%token<intvalue> INTVALUE FLOATVALUE STRINGVALUE
 %type<list> program declaration_list namespace_declaration parameter_list nonempty_parameter_list
 %type<list> class_body class_definition template_parameter_list nonempty_template_parameter_list
 %type<name> qualified_name type parameter class_name enum_name union_name
 %type<name> template_parameter classtypename_parameter
 %type<name> forward_declaration function_declaration function_definition name_declaration typedef_declaration
 %type<list> class_inheritance inheritance_list catchlist type_list
-%type<name> inheritance_name
+%type<name> inheritance_name variable_declaration
 %type<flag> constqualifier virtualqualifier abstractqualifier
 %type<access> access_qualifier
 
@@ -191,7 +193,8 @@ program: declaration_list {
 	}
 	;
 
-declaration_list: { }
+declaration_list
+  : { }
 	| declaration_list namespace_declaration {
 		$$ = $1;
 		$$.insert($$.end(), $2.begin(), $2.end());
@@ -208,6 +211,55 @@ declaration_list: { }
     $$ = $1;
   }
 	;
+
+variable_declaration: 
+  virtualqualifier type qualified_name ';'
+  {
+    $$ = $3;
+    $$.Type = NameInfo::NAME_SYMBOL;
+  }
+  | virtualqualifier type qualified_name '(' constant_list ')' ';'
+  {
+    $$ = $3;
+    $$.Type = NameInfo::NAME_SYMBOL;
+  }
+  | virtualqualifier type qualified_name '=' constant ';'
+  {
+    $$ = $3;
+    $$.Type = NameInfo::NAME_SYMBOL;
+  }
+  | virtualqualifier type qualified_name '=' '{' 
+  {
+    begin_function_body(scanner);
+  }  
+    FUNCTION_BODY ';'
+  {
+    $$ = $3;
+    $$.Type = NameInfo::NAME_SYMBOL;
+  }
+  | virtualqualifier type qualified_name '[' arraysize ']' ';' {
+    $$ = $3;
+  }
+  | virtualqualifier type qualified_name '[' arraysize ']' '=' '{'
+  {
+    begin_function_body(scanner);
+  }  
+    FUNCTION_BODY ';'
+  {
+    $$ = $3;
+  }
+
+arraysize:
+  | INTVALUE
+
+constant_list:
+  constant
+  | constant_list ',' constant
+
+constant:
+  INTVALUE
+  | FLOATVALUE
+  | STRINGVALUE
 
 namespace_declaration:
 	NAMESPACE IDENT '{' declaration_list '}' {
@@ -227,6 +279,7 @@ name_declaration:
   | function_declaration
   | function_definition
   | typedef_declaration
+  | variable_declaration
 
 class_definition:
     class_name 
@@ -592,4 +645,9 @@ static int yylex(CppNames::CppBisonParser::semantic_type* yylval,  CppNames::Cpp
 static void begin_function_body(CppNames::CppFlexScanner& scanner)
 {
   scanner.begin_function_body();
+}
+
+static void begin_parameter_list(CppNames::CppFlexScanner& scanner)
+{
+  scanner.begin_parameter_list();
 }
