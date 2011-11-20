@@ -8,6 +8,7 @@
 %lex-param   { CppNames::CppFlexScanner &scanner }
 %parse-param   { CppNames::CppFlexScanner &scanner }
 %parse-param { CppNames::CppBisonParserContext &context }
+%expect 1
 
 %code requires 
 {
@@ -108,9 +109,10 @@ namespace CppNames
   {
     NameInfoSet& names;
     ScopeStack scopes;
+    int error_count;
 
     CppBisonParserContext(NameInfoSet& p_names)
-      : names(p_names)
+      : names(p_names), error_count(0)
     {
     }
   };
@@ -174,9 +176,10 @@ struct AddNamespace
 %token<intvalue> INTVALUE
 %type<list> program declaration_list namespace_declaration parameter_list nonempty_parameter_list
 %type<list> class_body class_definition template_parameter_list nonempty_template_parameter_list
-%type<name> qualified_name type parameter class_name enum_name union_name template_parameter
+%type<name> qualified_name type parameter class_name enum_name union_name
+%type<name> template_parameter classtypename_parameter
 %type<name> forward_declaration function_declaration function_definition name_declaration typedef_declaration
-%type<list> class_inheritance inheritance_list catchlist
+%type<list> class_inheritance inheritance_list catchlist type_list
 %type<name> inheritance_name
 %type<flag> constqualifier virtualqualifier abstractqualifier
 %type<access> access_qualifier
@@ -467,26 +470,31 @@ nonempty_template_parameter_list:
 template_parameter: 
   type IDENT 
   {
-      $$ = $2;
+    $$ = $2;
   }
-  | CLASS IDENT 
+  | classtypename_parameter
   {
-      $$ = $2;
+    $$ = $1;
   }
-  | CLASS IDENT '=' type
+  | TEMPLATE '<' template_parameter_list '>' classtypename_parameter
   {
-      $$ = $2;
-  }
-  | TYPENAME IDENT 
-  {
-      $$ = $2;
-  }
-  | TYPENAME IDENT '=' type
-  {
-      $$ = $2;
+    $$ = $5;
   }
   ;
 
+classtypename_parameter:
+  classtypename IDENT
+  {
+    $$ = $2;
+  }
+  | classtypename IDENT '=' type
+  {
+    $$ = $2;
+  }
+
+classtypename:
+  CLASS
+  | TYPENAME
 
 parameter_list: {}
   | nonempty_parameter_list {$$ = $1;}
@@ -522,8 +530,23 @@ type: qualified_name {
    |  type CONST '*' {
       $$ = $1;
    }
+   |  type '<' type_list '>'  {
+      $$ = $1;
+      $$.IsTemplate = true;
+   }
    |  CONST type {
       $$ = $2;
+   }
+
+type_list:
+   type 
+   {
+     $$.push_back($1);
+   }
+   | type_list ',' type 
+   {
+     $$ = $1;
+     $$.push_back($3);
    }
 
 constqualifier: {
@@ -555,6 +578,7 @@ qualified_name: IDENT {
 
 void CppNames::CppBisonParser::error(const CppNames::CppBisonParser::location_type& loc, const std::string& msg) 
 {
+  ++context.error_count;
 	std::ostream& out = *scanner.get_yyout();
 	out << std::endl << "Parse error: " << msg << std::endl;
 	out << "at: " << loc << std::endl;
