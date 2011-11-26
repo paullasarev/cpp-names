@@ -11,6 +11,8 @@ namespace CppNames
 {
   namespace UnitTests
   {
+    const std::string DataDir("../../../unit_tests/data/");
+
     TESTSUITE(SaveDatabase)
     {
     protected:
@@ -29,11 +31,11 @@ namespace CppNames
 
     TESTCASE(SaveDatabase, DatabaseSave)
     {
-      std::string databaseName("../data/database1.csv");
+      std::string databaseName(DataDir + "database1.csv");
       Database database;
 
       std::remove(databaseName.c_str());
-      database.Scan("../data/dir_with_files");
+      database.Scan(DataDir + "dir_with_files");
       database.Save(databaseName);
       
       CHECK(fexists(databaseName));

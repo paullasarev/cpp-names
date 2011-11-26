@@ -2,8 +2,8 @@ find_package(BISON)
 find_package(FLEX)
 
 
-BISON_TARGET(CppBisonParser cpp_scanner.y cpp_scanner_y.cpp)
-FLEX_TARGET(CppFlexScanner cpp_scanner.l cpp_scanner_l.cpp)
+BISON_TARGET(CppBisonParser cpp_scanner.y  ${CMAKE_CURRENT_SOURCE_DIR}/cpp_scanner_y.cpp)
+FLEX_TARGET(CppFlexScanner cpp_scanner.l  ${CMAKE_CURRENT_SOURCE_DIR}/cpp_scanner_l.cpp)
 
 ADD_FLEX_BISON_DEPENDENCY(CppFlexScanner CppBisonParser)
 
