@@ -29,7 +29,7 @@ namespace CppNames
 
   void Database::Save(std::string databaseName)
   {
-    std::ofstream out(databaseName);
+    std::ofstream out(databaseName.c_str());
 
     for_each(Names.begin(), Names.end(), NameToCSV(out));
   }
@@ -94,7 +94,7 @@ namespace CppNames
       return;
     }
 
-    std::ifstream inputStream(info.FullPath);
+    std::ifstream inputStream(info.FullPath.c_str());
     if (!inputStream)
     {
       return;

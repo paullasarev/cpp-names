@@ -1,6 +1,8 @@
 find_package(BISON)
 find_package(FLEX)
+find_package( Boost 1.45.0 )
 
+include_directories(${Boost_INCLUDE_DIRS})
 
 BISON_TARGET(CppBisonParser cpp_scanner.y  ${CMAKE_CURRENT_SOURCE_DIR}/cpp_scanner_y.cpp)
 FLEX_TARGET(CppFlexScanner cpp_scanner.l  ${CMAKE_CURRENT_SOURCE_DIR}/cpp_scanner_l.cpp)
