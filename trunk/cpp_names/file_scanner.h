@@ -6,6 +6,7 @@
 
 #include <iostream>
 #include <memory>
+#include <boost/tr1/memory.hpp>
 
 namespace CppNames
 {
@@ -15,7 +16,7 @@ namespace CppNames
     virtual bool Scan(std::istream& inputStream, NameInfoSet& names) = 0;
   };
 
-  typedef std::shared_ptr<FileScanner> FileScannerPtr;
+  typedef std::tr1::shared_ptr<FileScanner> FileScannerPtr;
 }
 
 #endif
