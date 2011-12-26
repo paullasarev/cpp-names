@@ -9,22 +9,21 @@
 namespace UnitTests
 {
 
-class MainWindowTests: public QObject
-{
+  class MainWindowTests: public QObject
+  {
     Q_OBJECT
 
-public:
+  public:
     MainWindowTests();
 
-	void TestExistMenuItem(QMainWindow* mainWindow, QString menu, QString item);
+    void TestExistMenuItem(QMainWindow* mainWindow, QString menu, QString item);
 
-private Q_SLOTS:
-	void Menu_Exist_OpenProject();
-    void Menu_Fire_OpenProject();
-	void Menu_Exist_Exit();
-    void Menu_Fire_Exit();
-    void Controller_Exit();
-};
+    private Q_SLOTS:
+      void Menu_Exist_OpenProject();
+      void MenuOpenProject_ModelOpenProject();
+      void Menu_Exist_Exit();
+      void MenuExit_ModelExit();
+  };
 
 }
 #endif

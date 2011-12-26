@@ -9,13 +9,35 @@
 #include "../gui/mainwindow.h"
 
 #include "ui_mainwindow.h"
-//#include "hippomocks.h"
 
 namespace UnitTests
 {
 	MainWindowTests::MainWindowTests()
 	{
 	}
+
+	struct AppModelMock: public IAppModel
+	{
+		int ExitCount;
+		int OpenProjectCount;
+
+		AppModelMock()
+			: ExitCount(0)
+      , OpenProjectCount(0)
+		{
+		}
+
+		void Exit()
+		{
+			++ExitCount;
+		}
+
+		void OpenProject()
+		{
+      ++OpenProjectCount;
+		}
+
+	};
 
 	struct CompareAction
 	{
@@ -53,55 +75,34 @@ namespace UnitTests
 
 	void MainWindowTests::Menu_Exist_OpenProject()
 	{
-		MainWindow mainWindow;
+		AppModelMock *appModel = new AppModelMock();
+		MainWindow mainWindow(appModel);
 		TestExistMenuItem(&mainWindow, "&Files", "&Open project");
 	}
 
-	void MainWindowTests::Menu_Fire_OpenProject()
+	void MainWindowTests::MenuOpenProject_ModelOpenProject()
 	{
-		MainWindow mainWindow;
-		QSignalSpy spy(&mainWindow, SIGNAL(OpenProject()));
+		AppModelMock *appModel = new AppModelMock();
+		MainWindow mainWindow(appModel);
 		mainWindow.ui->actionOpenProject->activate(QAction::Trigger);
-		QCOMPARE(spy.count(), 1);
+    QCOMPARE(appModel->OpenProjectCount, 1);
 	}
 
 	void MainWindowTests::Menu_Exist_Exit()
 	{
-		MainWindow mainWindow;
+		AppModelMock *appModel = new AppModelMock();
+		MainWindow mainWindow(appModel);
 		TestExistMenuItem(&mainWindow, "&Files", "E&xit");
 	}
 
-	void MainWindowTests::Menu_Fire_Exit()
+	void MainWindowTests::MenuExit_ModelExit()
 	{
-		MainWindow mainWindow;
-		QSignalSpy spy(&mainWindow, SIGNAL(Exit()));
-		mainWindow.ui->actionExit->activate(QAction::Trigger);
-		QCOMPARE(spy.count(), 1);
-	}
-
-
-
-	struct AppModelMock: public IAppModel
-	{
-		int ExitCount;
-		AppModelMock(): ExitCount(0)
-		{
-		}
-
-		void Exit()
-		{
-			++ExitCount;
-		}
-	};
-
-	void MainWindowTests::Controller_Exit()
-	{
-		MainWindow mainWindow;
 		AppModelMock *appModel = new AppModelMock();
-		AppController controller(&mainWindow, appModel);
-		
-		mainWindow.EmitExit();
+		MainWindow mainWindow(appModel);
+		mainWindow.ui->actionExit->activate(QAction::Trigger);
 		QCOMPARE(appModel->ExitCount, 1);
 	}
 
+		//QSignalSpy spy(&mainWindow, SIGNAL(Exit()));
+		//QCOMPARE(spy.count(), 1);
 }
