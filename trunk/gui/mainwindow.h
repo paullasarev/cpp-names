@@ -4,58 +4,54 @@
 #include <QMainWindow>
 
 namespace Ui {
-    class MainWindow;
+  class MainWindow;
 }
 
 namespace UnitTests
 {
-	class MainWindowTests;
+  class MainWindowTests;
 }
-
-
-class MainWindow : public QMainWindow
-{
-    Q_OBJECT
-
-public:
-    explicit MainWindow(QWidget *parent = 0);
-    ~MainWindow();
-private:
-	void InitConnections();
-
-private:
-    Ui::MainWindow *ui;
-	friend class UnitTests::MainWindowTests;
-
-public slots:
-	void EmitOpenProject();
-	void EmitExit();
-
-signals:
-	void OpenProject();
-	void Exit();
-};
-
 
 struct IAppModel
 {
-	virtual void Exit() = 0;
+  virtual void Exit() = 0;
+  virtual void OpenProject() = 0;
+};
+
+class MainWindow : public QMainWindow
+{
+  Q_OBJECT
+
+public:
+  explicit MainWindow(IAppModel *model, QWidget *parent = 0);
+  ~MainWindow();
+private:
+  void InitConnections();
+
+private:
+  Ui::MainWindow *ui;
+  IAppModel *Model;
+  friend class UnitTests::MainWindowTests;
+
+  public slots:
+    void OnOpenProject();
+    void OnExit();
+
+    //signals:
+    //	void OpenProject();
+    //	void Exit();
 };
 
 
-class AppController: QObject
+struct AppModel: public IAppModel
 {
-	Q_OBJECT
+  virtual void Exit()
+  {
+  }
 
-public:
-	AppController(MainWindow* view, IAppModel* model);
-
-public slots:
-	void OnExit();
-
-private:
-	MainWindow* View;
-	IAppModel* Model;
+  virtual void OpenProject()
+  {
+  }
 };
 
 
